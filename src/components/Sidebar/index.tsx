@@ -1,6 +1,6 @@
 "use client"
 
-import { House, Moped, StarHalf, List, Users, ChatText, Gear, ClockCounterClockwise } from "@phosphor-icons/react";
+import { House, Moped, StarHalf, Users, ChatText, Gear, ClockCounterClockwise } from "@phosphor-icons/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
