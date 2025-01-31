@@ -3,6 +3,12 @@
 import { MagnifyingGlass } from "@phosphor-icons/react";
 import { useState } from "react";
 
+interface OrderItem {
+  name: string;
+  price: number;
+  quantity: number;
+}
+
 export function OrdersPage() {
   const [activeFilter, setActiveFilter] = useState('Em aberto');
   
@@ -77,7 +83,7 @@ export function OrdersPage() {
 
             <div className="space-y-2">
               <h3 className="text-[#FF5900] text-lg font-medium">{order.customer}</h3>
-              {order.items.map((item, itemIndex) => (
+              {order.items.map((item: OrderItem, itemIndex: number) => (
                 <div key={itemIndex} className="flex justify-between text-zinc-400 text-sm">
                   <span>{item.name}</span>
                   <span>R$ {item.price.toFixed(2)}</span>
