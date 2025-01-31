@@ -2,6 +2,7 @@
 
 import { CaretLeft } from "@phosphor-icons/react";
 import Link from "next/link";
+import Image from 'next/image';
 
 export function NewProductPage() {
   return (
@@ -17,10 +18,13 @@ export function NewProductPage() {
         <div className="bg-white p-6 rounded-lg border border-zinc-100">
           <div className="flex gap-4">
             <div className="w-20 h-20 bg-[#FF5900]/10 rounded-lg flex items-center justify-center">
-              <img 
+              <Image 
                 src="/images/icons/burger.png" 
                 alt="Burger" 
-                className="w-12 h-12 object-contain"
+                width={48}
+                height={48}
+                className="object-contain relative z-10"
+
               />
             </div>
             <div>

@@ -1,6 +1,7 @@
 "use client"
 
 import { Heart } from "@phosphor-icons/react";
+import Image from 'next/image';
 
 export function LastOrderedProducts() {
   const products = [
@@ -48,10 +49,13 @@ export function LastOrderedProducts() {
                 <Heart size={24} weight="fill" className="text-[#EB5757]" />
               </button>
               <div className="rounded-2xl overflow-hidden">
-                <img 
+                <Image 
                   src={product.image} 
                   alt={product.name}
+                  width={100}
+                  height={100}
                   className="w-full h-44 object-cover"
+
                 />
               </div>
             </div>

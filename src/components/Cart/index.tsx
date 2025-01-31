@@ -2,6 +2,7 @@
 
 import { useCart } from '@/hooks/useCart';
 import { X } from '@phosphor-icons/react';
+import Image from 'next/image';
 
 export function Cart({ onClose }: { onClose: () => void }) {
   const { items, removeFromCart, updateQuantity } = useCart();
@@ -27,10 +28,12 @@ export function Cart({ onClose }: { onClose: () => void }) {
             <div className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-250px)]">
               {items.map(item => (
                 <div key={item.id} className="flex gap-4 items-center">
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.name}
-                    className="w-20 h-20 object-cover rounded"
+                    width={80}
+                    height={80}
+                    className="object-contain rounded"
                   />
                   <div className="flex-1">
                     <h3 className="font-medium">{item.name}</h3>

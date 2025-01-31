@@ -1,6 +1,7 @@
 "use client"
 
 import { useCart } from "@/hooks/useCart";
+import Image from 'next/image';
 
 interface Product {
   id: number;
@@ -19,10 +20,13 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="bg-zinc-900 rounded-lg overflow-hidden">
-      <img 
+      <Image 
         src={product.image} 
         alt={product.name} 
+        width={100}
+        height={100}
         className="w-full h-48 object-cover"
+
       />
       <div className="p-4">
         <h3 className="text-xl font-bold">{product.name}</h3>

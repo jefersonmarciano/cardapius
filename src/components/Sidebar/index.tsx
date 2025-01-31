@@ -4,6 +4,7 @@ import { House, Moped, StarHalf, List, Users, ChatText, Gear, ClockCounterClockw
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import Image from 'next/image';
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -42,10 +43,13 @@ export function Sidebar() {
   return (
     <aside className="w-[240px] bg-white p-6 flex flex-col">
       <div className="mb-8">
-        <img 
+        <Image 
           src="/images/icons/Logo.png" 
           alt="Cardapius" 
+          width={100}
+          height={100}
           className="h-8"
+
         />
       </div>
 
