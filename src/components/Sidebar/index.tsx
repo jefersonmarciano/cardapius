@@ -1,23 +1,40 @@
 "use client"
 
-import { House, Truck, List, Users, ChatText, Gear } from "@phosphor-icons/react";
+import { House, Moped, StarHalf, List, Users, ChatText, Gear, ClockCounterClockwise } from "@phosphor-icons/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 export function Sidebar() {
   const pathname = usePathname();
+  const [isOrdersOpen, setIsOrdersOpen] = useState(false);
 
   const menuItems = [
-    { icon: House, label: "Dashboard", href: "/" },
-    { icon: Truck, label: "Delivery", href: "/delivery" },
-    { icon: List, label: "Cardápio", href: "/cardapio" },
-    { icon: Users, label: "Clientes", href: "/clientes" },
-    { icon: ChatText, label: "Mensagens", href: "/mensagens" },
-    { icon: Gear, label: "Configurações", href: "/configuracoes" },
+    { icon: House, label: 'Dashboard', href: '/' },
+    { icon: Moped, label: 'Delivery', href: '/delivery' },
+    { icon: StarHalf, label: 'Cardápio', href: '/cardapio' },
+    { icon: ClockCounterClockwise, label: 'Pedidos', href: '/pedidos',
+      submenu: [
+        { label: "Em aberto", href: "/pedidos/em-aberto", count: 8 },
+        { label: "Em preparo", href: "/pedidos/em-preparo" },
+        { label: "Aguardando envio", href: "/pedidos/aguardando-envio" },
+        { label: "Enviados", href: "/pedidos/enviados" },
+        { label: "Finalizados", href: "/pedidos/finalizados" }
+      ]
+    },
+    { icon: Users, label: 'Clientes', href: '/clientes' },
+    { icon: ChatText, label: 'Mensagens', href: '/mensagens' },
+    { icon: Gear, label: 'Configurações', href: '/configuracoes' },
   ];
 
+  const handleMenuClick = (isOrders: boolean) => {
+    if (!isOrders) {
+      setIsOrdersOpen(false);
+    }
+  };
+
   return (
-    <aside className="w-[240px] bg-white h-screen p-6 flex flex-col">
+    <aside className="w-[240px] bg-white p-6 flex flex-col">
       <div className="mb-8">
         <img 
           src="/images/icons/Logo.png" 
@@ -26,31 +43,69 @@ export function Sidebar() {
         />
       </div>
 
-      <nav className="flex-1">
-        <ul className="space-y-2">
-          {menuItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = pathname === item.href;
+      <nav className="flex-1 space-y-2">
+        {menuItems.map((item) => {
+          const Icon = item.icon;
+          const isOrders = item.label === 'Pedidos';
 
+          if (isOrders) {
             return (
-              <li key={item.href}>
+              <div key={item.label}>
                 <Link
                   href={item.href}
+                  onClick={() => setIsOrdersOpen(!isOrdersOpen)}
                   className={`
-                    flex items-center gap-3 p-3 rounded-lg transition-colors
-                    ${isActive 
-                      ? 'bg-[#FF5900] text-white' 
-                      : 'text-zinc-500 hover:bg-[#FF5900]/10 hover:text-[#FF5900]'
-                    }
+                    w-full flex items-center gap-3 p-3 rounded-lg transition-colors
+                    ${pathname.startsWith('/pedidos') ? 'bg-[#FF5900] text-white' : 'text-zinc-500 hover:bg-[#FF5900]/10 hover:text-[#FF5900]'}
                   `}
                 >
-                  <Icon weight={isActive ? "fill" : "regular"} className="w-5 h-5" />
-                  <span className="font-medium">{item.label}</span>
+                  <Icon weight={pathname.startsWith('/pedidos') ? "fill" : "regular"} className="w-5 h-5" />
+                  <span className="font-medium flex-1 text-left">{item.label}</span>
                 </Link>
-              </li>
+                
+                {isOrdersOpen && (
+                  <div className="ml-11 mt-2 space-y-2">
+                    {item.submenu?.map((subitem) => (
+                      <Link
+                        key={subitem.href}
+                        href={subitem.href}
+                        className={`
+                          flex items-center py-2 px-3 rounded-lg text-sm transition-colors
+                          ${pathname === subitem.href 
+                            ? 'text-[#FF5900] font-medium' 
+                            : 'text-zinc-500 hover:text-[#FF5900]'
+                          }
+                        `}
+                      >
+                        {subitem.count && (
+                          <span className="mr-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+                            {subitem.count}
+                          </span>
+                        )}
+                        {subitem.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             );
-          })}
-        </ul>
+          }
+
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => handleMenuClick(false)}
+              className={`
+                flex items-center gap-3 p-3 rounded-lg transition-colors
+                ${pathname === item.href ? 'bg-[#FF5900] text-white' : 'text-zinc-500 hover:bg-[#FF5900]/10 hover:text-[#FF5900]'}
+              `}
+            >
+              <Icon weight={pathname === item.href ? "fill" : "regular"} className="w-5 h-5" />
+              <span className="font-medium">{item.label}</span>
+            </Link>
+          );
+        })}
       </nav>
 
       <div className="mt-auto bg-emerald-500 p-6 rounded-3xl relative overflow-hidden">
