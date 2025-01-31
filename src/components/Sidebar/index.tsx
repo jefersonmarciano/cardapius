@@ -8,11 +8,18 @@ import { useState } from "react";
 export function Sidebar() {
   const pathname = usePathname();
   const [isOrdersOpen, setIsOrdersOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
     { icon: House, label: 'Dashboard', href: '/' },
     { icon: Moped, label: 'Delivery', href: '/delivery' },
-    { icon: StarHalf, label: 'Cardápio', href: '/cardapio' },
+    { icon: StarHalf, label: 'Cardápio', href: '/cardapio',
+      submenu: [
+        { label: 'Produtos', href: '/cardapio' },
+        { label: 'Categorias', href: '/cardapio/categorias' },
+        { label: 'Adicionais', href: '/cardapio/adicionais' }
+      ]
+    },
     { icon: ClockCounterClockwise, label: 'Pedidos', href: '/pedidos',
       submenu: [
         { label: "Em aberto", href: "/pedidos/em-aberto", count: 8 },
@@ -27,10 +34,9 @@ export function Sidebar() {
     { icon: Gear, label: 'Configurações', href: '/configuracoes' },
   ];
 
-  const handleMenuClick = (isOrders: boolean) => {
-    if (!isOrders) {
-      setIsOrdersOpen(false);
-    }
+  const handleMenuClick = (isOrders: boolean, isMenu: boolean) => {
+    if (!isOrders) setIsOrdersOpen(false);
+    if (!isMenu) setIsMenuOpen(false);
   };
 
   return (
@@ -47,23 +53,30 @@ export function Sidebar() {
         {menuItems.map((item) => {
           const Icon = item.icon;
           const isOrders = item.label === 'Pedidos';
+          const isMenu = item.label === 'Cardápio';
 
-          if (isOrders) {
+          if (isOrders || isMenu) {
             return (
               <div key={item.label}>
                 <Link
                   href={item.href}
-                  onClick={() => setIsOrdersOpen(!isOrdersOpen)}
+                  onClick={() => {
+                    if (isOrders) setIsOrdersOpen(!isOrdersOpen);
+                    if (isMenu) setIsMenuOpen(!isMenuOpen);
+                  }}
                   className={`
                     w-full flex items-center gap-3 p-3 rounded-lg transition-colors
-                    ${pathname.startsWith('/pedidos') ? 'bg-[#FF5900] text-white' : 'text-zinc-500 hover:bg-[#FF5900]/10 hover:text-[#FF5900]'}
+                    ${(isOrders && pathname.startsWith('/pedidos')) || (isMenu && pathname.startsWith('/cardapio'))
+                      ? 'bg-[#FF5900] text-white' 
+                      : 'text-zinc-500 hover:bg-[#FF5900]/10 hover:text-[#FF5900]'
+                    }
                   `}
                 >
-                  <Icon weight={pathname.startsWith('/pedidos') ? "fill" : "regular"} className="w-5 h-5" />
+                  <Icon weight={(isOrders && pathname.startsWith('/pedidos')) || (isMenu && pathname.startsWith('/cardapio')) ? "fill" : "regular"} className="w-5 h-5" />
                   <span className="font-medium flex-1 text-left">{item.label}</span>
                 </Link>
                 
-                {isOrdersOpen && (
+                {((isOrders && isOrdersOpen) || (isMenu && isMenuOpen)) && (
                   <div className="ml-11 mt-2 space-y-2">
                     {item.submenu?.map((subitem) => (
                       <Link
@@ -95,7 +108,7 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              onClick={() => handleMenuClick(false)}
+              onClick={() => handleMenuClick(false, false)}
               className={`
                 flex items-center gap-3 p-3 rounded-lg transition-colors
                 ${pathname === item.href ? 'bg-[#FF5900] text-white' : 'text-zinc-500 hover:bg-[#FF5900]/10 hover:text-[#FF5900]'}
