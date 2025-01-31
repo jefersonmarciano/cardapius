@@ -1,11 +1,23 @@
 "use client"
 
-import { UserCircle, Money, Users, ArrowsClockwise, LockKey } from "@phosphor-icons/react";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { UserCircle, ShoppingCart } from "@phosphor-icons/react";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Cart } from "@/components/Cart";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { UpgradePlanBanner } from "@/components/UpgradePlanBanner";
+import { useState } from "react";
+import Image from "next/image";
+import { Money, Users, ArrowsClockwise, LockKey } from "@phosphor-icons/react";
 import { MostOrderedProducts } from "@/components/Product/MostOrderedProducts";
 import { LastOrderedProducts } from "@/components/Product/LastOrderedProducts";
-import { UpgradePlanBanner } from "@/components/UpgradePlanBanner";
 
-export default function Dashboard() {
+export default function Home() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const itemsCount = 2;
+
   const stats = [
     {
       label: "Faturamento",
@@ -60,9 +72,11 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <img 
+          <Image 
             src="/images/banners/mulher.png" 
             alt="Mulher" 
+            width={180}
+            height={300}
             className="absolute right-[-2.75rem] top-[29px] h-[180px] 2xl:h-[300px] 2xl:top-[-40px] z-10"
           />
         </div>
