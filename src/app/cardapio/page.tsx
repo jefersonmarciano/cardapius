@@ -2,8 +2,10 @@
 
 import { CaretLeft } from "@phosphor-icons/react";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { fetchMenuData } from "../mocks/menu";
+
 
 
 type MenuData = {
@@ -17,7 +19,7 @@ type MenuData = {
     id: number;
     title: string;
     description: string;
-    items: any[];
+    items: string[];
   };
 };
 
@@ -49,10 +51,12 @@ export default function Cardapio() {
           <div className="flex gap-4 items-center">
             <div className="w-20 h-20 bg-[#FF5900]/5 rounded-lg flex items-center justify-center relative shrink-0">
               <div className="absolute inset-0 bg-[#FF5900]/5 rounded-full blur-xl"></div>
-              <img 
+              <Image 
                 src={menuData.simpleRegister.icon}
                 alt={menuData.simpleRegister.title} 
-                className="w-16 h-16 object-contain relative z-10"
+                width={64}
+                height={64}
+                className="object-contain relative z-10"
               />
             </div>
             <div className="flex-1 min-w-0">
