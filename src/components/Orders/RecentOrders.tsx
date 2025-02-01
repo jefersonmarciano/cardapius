@@ -103,7 +103,7 @@ export function RecentOrders() {
         <button className="text-[#FF3F00] text-sm font-medium">Ver mais</button>
       </div>
 
-      <div className="space-y-4 max-h-[600px] overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:none]">
+      <div className="space-y-4 max-h-[calc(100vh-240px)] overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:none]">
         {orders.map((order, index) => {
           const statusInfo = getStatusInfo(order.status);
           return (
