@@ -46,14 +46,15 @@ export function Sidebar() {
         <Image 
           src="/images/icons/Logo.png" 
           alt="Cardapius" 
-          width={100}
-          height={100}
-          className="h-8"
-
+          width={150}
+          height={40}
+          className="object-contain"
+          quality={100}
+          priority
         />
       </div>
 
-      <nav className="flex-1 space-y-2">
+      <nav className="space-y-2 h-fit">
         {menuItems.map((item) => {
           const Icon = item.icon;
           const isOrders = item.label === 'Pedidos';
@@ -125,7 +126,7 @@ export function Sidebar() {
         })}
       </nav>
 
-      <div className="mt-auto bg-emerald-500 p-6 rounded-3xl relative overflow-hidden">
+      <div className="mt-4 bg-emerald-500 p-6 rounded-3xl relative overflow-hidden">
         {/* Pontos decorativos */}
         <div className="absolute top-4 right-4 grid grid-cols-4 gap-1">
           {[...Array(16)].map((_, i) => (

@@ -34,7 +34,7 @@ export function OrdersPage() {
   ];
 
   return (
-    <div className="p-8">
+    <div className="p-8 max-h-screen overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:none]">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-medium text-zinc-900">Pedidos</h1>
         <button className="bg-[#FF5900] text-white px-4 py-2 rounded-lg text-sm font-medium">

@@ -24,12 +24,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body className={poppins.className}>
-        <div className="flex min-h-screen">
+        <div className="flex min-h-screen bg-zinc-50">
           <Sidebar />
-          <main className="flex-1 bg-zinc-50">
+          <div className="flex-1">
             <CartWrapper>
               <div className="flex flex-col h-full">
-                <div className="flex justify-between items-center p-8">
+                <div className="flex justify-between items-center">
                 <h1 className="text-[24px] font-bold text-zinc-900">Olá, Allan!</h1>
                   <Header />
                 </div>
@@ -41,7 +41,7 @@ export default function RootLayout({
                 </div>
               </div>
             </CartWrapper>
-          </main>
+          </div>
         </div>
       </body>
     </html>
