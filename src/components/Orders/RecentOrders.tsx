@@ -99,7 +99,7 @@ export function RecentOrders() {
       </div>
 
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-zinc-900 font-medium">Últimos pedidos</h2>
+        <h2 className="text-xl font-semibold text-zinc-900">Últimos pedidos</h2>
         <button className="text-[#FF3F00] text-sm font-medium">Ver mais</button>
       </div>
 

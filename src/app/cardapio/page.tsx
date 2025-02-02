@@ -14,7 +14,7 @@ export default function CardapioPage() {
         <h1 className="text-2xl font-medium text-zinc-900">Novo produto</h1>
       </div>
 
-      <div className="max-w-[600px] space-y-4">
+      <div className="max-w-[100%] space-y-4">
         {/* Cadastro simples */}
         <Link href="/cardapio/cadastro-simples">
           <div className="bg-white p-6 rounded-2xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 hover:border-[#FF5900] group">
