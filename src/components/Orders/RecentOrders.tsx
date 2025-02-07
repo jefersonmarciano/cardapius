@@ -107,7 +107,10 @@ export function RecentOrders() {
         {orders.map((order, index) => {
           const statusInfo = getStatusInfo(order.status);
           return (
-            <div key={index} className="bg-white rounded-2xl p-4 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+            <div 
+              key={index} 
+              className="bg-white rounded-2xl p-4 border border-zinc-200 shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
+            >
               <div className="flex items-center justify-between mb-4">
                 <span className={`px-3 py-1 rounded-md text-sm font-medium ${statusInfo.badge}`}>
                   {statusInfo.label}

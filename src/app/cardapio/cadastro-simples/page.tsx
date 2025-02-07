@@ -61,25 +61,33 @@ export default function CadastroSimplesPage() {
     <div className="p-8">
       <Header />
       
-      <div className="max-w-[100%] space-y-4">
-        <SimpleRegistrationCard />
+      <div className="max-w-[100%] ">
+        <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
+          <SimpleRegistrationCard />
+        </div>
 
-        <CategorySection 
-          selectedCategories={selectedCategories}
-          onOpenModal={() => setIsCategoryModalOpen(true)}
-        />
+        <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
+          <CategorySection 
+            selectedCategories={selectedCategories}
+            onOpenModal={() => setIsCategoryModalOpen(true)}
+          />
+        </div>
 
         {showProductSection && (
-          <ProductSection 
-            isEditing={isProductEditing}
-            onEdit={() => setIsProductEditing(true)}
-          />
+          <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
+            <ProductSection 
+              isEditing={isProductEditing}
+              onEdit={() => setIsProductEditing(true)}
+            />
+          </div>
         )}
 
-        <AdditionalsSection 
-          isVisible={showAdditionals}
-          onOpenAdditionalsModal={() => setIsAdditionalsModalOpen(true)}
-        />
+        <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
+          <AdditionalsSection 
+            isVisible={showAdditionals}
+            onOpenAdditionalsModal={() => setIsAdditionalsModalOpen(true)}
+          />
+        </div>
 
         {/* Botão de Continuar/Finalizar */}
         <div className="flex justify-end pt-4">

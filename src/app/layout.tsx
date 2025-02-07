@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next'
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { CartWrapper } from "@/components/CartWrapper";
@@ -12,17 +12,21 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Cardapius",
-  description: "Seu cardápio digital",
-};
+  title: 'Cardapius',
+  description: 'Sistema de cardápio digital',
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/images/iconTeme.png" />
+        <link rel="shortcut icon" href="/images/iconTeme.png" />
+      </head>
       <body className={poppins.className}>
         <div className="flex min-h-screen bg-zinc-50">
           <Sidebar />
@@ -45,5 +49,5 @@ export default function RootLayout({
         </div>
       </body>
     </html>
-  );
+  )
 }

@@ -81,7 +81,7 @@ export function AdditionalsGroupModal({
               <input 
                 type="text"
                 value="1"
-                className="w-full text-center border-none outline-none"
+                className="w-full text-center border-none outline-none text-zinc-900"
                 readOnly
               />
               <button className="p-3 text-[#FF5900] hover:text-[#FF5900]/80">+</button>
@@ -98,7 +98,7 @@ export function AdditionalsGroupModal({
               <input 
                 type="text"
                 value="3"
-                className="w-full text-center border-none outline-none"
+                className="w-full text-center border-none outline-none text-zinc-900"
                 readOnly
               />
               <button className="p-3 text-[#FF5900] hover:text-[#FF5900]/80">+</button>
@@ -107,16 +107,24 @@ export function AdditionalsGroupModal({
         </div>
 
         {/* Seção de Adicionais */}
-        <div>
-          <h3 className="text-lg font-medium text-zinc-900 mb-4">Adicionais neste grupo</h3>
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-medium text-zinc-900">Adicionais neste grupo</h3>
+            <button 
+              onClick={onOpenIncludeAdditionals}
+              className="text-[#FF5900] bg-[#FFF1EC] hover:bg-[#FFF1EC]/80 px-3 py-1.5 rounded-lg flex items-center gap-1 text-sm"
+            >
+              <span>+</span>
+              Incluir adicional
+            </button>
+          </div>
           <div className="flex flex-col items-center justify-center py-8 border-2 border-dashed border-zinc-200 rounded-lg">
             <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mb-4">
               <Image 
-                src="/images/icons/fork-knife-circle.png"
+                src="/images/icons/prato.svg"
                 alt="Adicionais" 
-                width={32}
-                height={32}
-                className="opacity-40"
+                width={72}
+                height={72}
               />
             </div>
             <p className="text-zinc-400 text-center mb-2">Ops! Este grupo ainda não possui adicionais.</p>
@@ -127,7 +135,7 @@ export function AdditionalsGroupModal({
         </div>
 
         {/* Footer */}
-        <div className="flex justify-end mt-8">
+        <div className="flex justify-end pt-2">
           <button 
             onClick={onClose}
             className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"

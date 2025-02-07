@@ -14,7 +14,7 @@ export function Sidebar() {
   const menuItems = [
     { icon: House, label: 'Dashboard', href: '/' },
     { icon: Moped, label: 'Delivery', href: '/delivery' },
-    { icon: StarHalf, label: 'Cardápio', href: '/cardapio',
+    { icon: StarHalf, label: 'Cardápio', href: '#',
       submenu: [
         { label: 'Produtos', href: '/cardapio' },
         { label: 'Categorias', href: '/cardapio/categorias' },
@@ -41,8 +41,8 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-[240px] bg-white p-6 flex flex-col">
-      <div className="mb-8">
+    <aside className="w-[240px] bg-white flex flex-col h-screen">
+      <div className="p-6">
         <Image 
           src="/images/icons/Logo.png" 
           alt="Cardapius" 
@@ -54,95 +54,98 @@ export function Sidebar() {
         />
       </div>
 
-      <nav className="space-y-2 h-fit">
-        {menuItems.map((item) => {
-          const Icon = item.icon;
-          const isOrders = item.label === 'Pedidos';
-          const isMenu = item.label === 'Cardápio';
+      <nav className="flex-1 overflow-y-auto scrollbar-none px-6">
+        <div className="space-y-2">
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            const isOrders = item.label === 'Pedidos';
+            const isMenu = item.label === 'Cardápio';
 
-          if (isOrders || isMenu) {
+            if (isOrders || isMenu) {
+              return (
+                <div key={item.label}>
+                  <button
+                    onClick={() => {
+                      if (isOrders) setIsOrdersOpen(!isOrdersOpen);
+                      if (isMenu) setIsMenuOpen(!isMenuOpen);
+                    }}
+                    className={`
+                      w-full flex items-center gap-3 p-3 rounded-lg transition-colors
+                      ${(isOrders && pathname.startsWith('/pedidos')) || (isMenu && pathname.startsWith('/cardapio'))
+                        ? 'bg-[#FF5900] text-white' 
+                        : 'text-zinc-500 hover:bg-[#FF5900]/10 hover:text-[#FF5900]'
+                      }
+                    `}
+                  >
+                    <Icon weight={(isOrders && pathname.startsWith('/pedidos')) || (isMenu && pathname.startsWith('/cardapio')) ? "fill" : "regular"} className="w-5 h-5" />
+                    <span className="font-medium flex-1 text-left">{item.label}</span>
+                  </button>
+                  
+                  {((isOrders && isOrdersOpen) || (isMenu && isMenuOpen)) && (
+                    <div className="ml-11 mt-2 space-y-2">
+                      {item.submenu?.map((subitem) => (
+                        <Link
+                          key={subitem.href}
+                          href={subitem.href}
+                          className={`
+                            flex items-center py-2 px-3 rounded-lg text-sm transition-colors
+                            ${pathname === subitem.href 
+                              ? 'text-[#FF5900] font-medium' 
+                              : 'text-zinc-500 hover:text-[#FF5900]'
+                            }
+                          `}
+                        >
+                          {subitem.count && (
+                            <span className="mr-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+                              {subitem.count}
+                            </span>
+                          )}
+                          {subitem.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
             return (
-              <div key={item.label}>
-                <Link
-                  href={item.href}
-                  onClick={() => {
-                    if (isOrders) setIsOrdersOpen(!isOrdersOpen);
-                    if (isMenu) setIsMenuOpen(!isMenuOpen);
-                  }}
-                  className={`
-                    w-full flex items-center gap-3 p-3 rounded-lg transition-colors
-                    ${(isOrders && pathname.startsWith('/pedidos')) || (isMenu && pathname.startsWith('/cardapio'))
-                      ? 'bg-[#FF5900] text-white' 
-                      : 'text-zinc-500 hover:bg-[#FF5900]/10 hover:text-[#FF5900]'
-                    }
-                  `}
-                >
-                  <Icon weight={(isOrders && pathname.startsWith('/pedidos')) || (isMenu && pathname.startsWith('/cardapio')) ? "fill" : "regular"} className="w-5 h-5" />
-                  <span className="font-medium flex-1 text-left">{item.label}</span>
-                </Link>
-                
-                {((isOrders && isOrdersOpen) || (isMenu && isMenuOpen)) && (
-                  <div className="ml-11 mt-2 space-y-2">
-                    {item.submenu?.map((subitem) => (
-                      <Link
-                        key={subitem.href}
-                        href={subitem.href}
-                        className={`
-                          flex items-center py-2 px-3 rounded-lg text-sm transition-colors
-                          ${pathname === subitem.href 
-                            ? 'text-[#FF5900] font-medium' 
-                            : 'text-zinc-500 hover:text-[#FF5900]'
-                          }
-                        `}
-                      >
-                        {subitem.count && (
-                          <span className="mr-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
-                            {subitem.count}
-                          </span>
-                        )}
-                        {subitem.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => handleMenuClick(false, false)}
+                className={`
+                  flex items-center gap-3 p-3 rounded-lg transition-colors
+                  ${pathname === item.href ? 'bg-[#FF5900] text-white' : 'text-zinc-500 hover:bg-[#FF5900]/10 hover:text-[#FF5900]'}
+                `}
+              >
+                <Icon weight={pathname === item.href ? "fill" : "regular"} className="w-5 h-5" />
+                <span className="font-medium">{item.label}</span>
+              </Link>
             );
-          }
-
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => handleMenuClick(false, false)}
-              className={`
-                flex items-center gap-3 p-3 rounded-lg transition-colors
-                ${pathname === item.href ? 'bg-[#FF5900] text-white' : 'text-zinc-500 hover:bg-[#FF5900]/10 hover:text-[#FF5900]'}
-              `}
-            >
-              <Icon weight={pathname === item.href ? "fill" : "regular"} className="w-5 h-5" />
-              <span className="font-medium">{item.label}</span>
-            </Link>
-          );
-        })}
+          })}
+        </div>
       </nav>
 
-      <div className="mt-4 bg-emerald-500 p-6 rounded-3xl relative overflow-hidden">
-        {/* Pontos decorativos */}
-        <div className="absolute top-4 right-4 grid grid-cols-4 gap-1">
-          {[...Array(16)].map((_, i) => (
-            <div key={i} className="w-1 h-1 bg-white/20 rounded-full" />
-          ))}
+      <div className="p-6">
+        <div className="bg-emerald-500 p-6 rounded-3xl relative overflow-hidden">
+          {/* Pontos decorativos */}
+          <div className="absolute top-4 right-4 grid grid-cols-4 gap-1">
+            {[...Array(16)].map((_, i) => (
+              <div key={i} className="w-1 h-1 bg-white/20 rounded-full" />
+            ))}
+          </div>
+          
+          {/* Círculo decorativo */}
+          <div className="absolute bottom-0 right-0 w-32 h-32 bg-emerald-400/30 rounded-full translate-x-8 translate-y-8" />
+          
+          <h3 className="text-white text-lg font-bold leading-tight mb-4 relative z-10">
+            Garanta mais recursos subindo seu plano
+          </h3>
+          <button className="bg-white text-zinc-900 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-white/90 transition-colors relative z-10">
+            DESCONTO AQUI!
+          </button>
         </div>
-        
-        {/* Círculo decorativo */}
-        <div className="absolute bottom-0 right-0 w-32 h-32 bg-emerald-400/30 rounded-full translate-x-8 translate-y-8" />
-        
-        <h3 className="text-white text-lg font-bold leading-tight mb-4 relative z-10">
-          Garanta mais recursos subindo seu plano
-        </h3>
-        <button className="bg-white text-zinc-900 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-white/90 transition-colors relative z-10">
-          DESCONTO AQUI!
-        </button>
       </div>
     </aside>
   );
