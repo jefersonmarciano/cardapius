@@ -4,28 +4,25 @@ import { CaretLeft, MagnifyingGlass } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useAdditionals } from '../../hooks/useAdditionals';
 
-interface Additional {
-  id: number;
-  image: string;
-  name: string;
-  description: string;
-  price: string;
-  promoPrice: string;
-  isAvailable: boolean;
-}
-
 interface IncludeAdditionalsModalProps {
   isOpen: boolean;
   onClose: () => void;
+  additionals: {
+    id: number;
+    image: string;
+    name: string;
+    description: string;
+    price: string;
+    promoPrice: string;
+    isAvailable: boolean;
+  }[];
 }
 
 export function IncludeAdditionalsModal({ isOpen, onClose }: IncludeAdditionalsModalProps) {
-  const { 
-    additionals, 
-    isLoading, 
-    error, 
-    toggleAvailability, 
-    searchAdditionals 
+  const {
+    additionals,
+    toggleAvailability,
+    searchAdditionals
   } = useAdditionals();
 
   if (!isOpen) return null;
@@ -56,9 +53,6 @@ export function IncludeAdditionalsModal({ isOpen, onClose }: IncludeAdditionalsM
               className="w-full pl-12 pr-4 py-3 rounded-lg border border-zinc-200 outline-none"
             />
           </div>
-
-          {isLoading && <p>Carregando...</p>}
-          {error && <p className="text-red-500">{error}</p>}
 
           {/* Botão Novo adicional */}
           <button className="text-[#FF5900] bg-[#FFF6F3] px-4 py-2 rounded-lg text-sm font-medium mb-8">

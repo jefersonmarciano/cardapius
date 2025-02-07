@@ -38,8 +38,6 @@ const mockAdditionals: Additional[] = [
 
 export function useAdditionals() {
   const [additionals, setAdditionals] = useState<Additional[]>(mockAdditionals);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const toggleAvailability = (id: number) => {
     setAdditionals(additionals.map(additional => {
@@ -68,8 +66,6 @@ export function useAdditionals() {
 
   return {
     additionals,
-    isLoading,
-    error,
     toggleAvailability,
     searchAdditionals
   };
