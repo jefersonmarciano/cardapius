@@ -1,149 +1,263 @@
+"use client"
+
 import { CaretLeft } from "@phosphor-icons/react";
 import Image from "next/image";
+import { useState } from "react";
+import { IncludeAdditionalsModal } from "./IncludeAdditionalsModal";
+import { useAdditionals } from "../../hooks/useAdditionals";
+import { AdditionalGroupsListModal } from './AdditionalGroupsListModal';
 
 interface AdditionalsGroupModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onOpenIncludeAdditionals: () => void;
 }
 
-export function AdditionalsGroupModal({ 
-  isOpen, 
+export function AdditionalsGroupModal({
+  isOpen,
   onClose,
-  onOpenIncludeAdditionals 
 }: AdditionalsGroupModalProps) {
+  const [isIncludeAdditionalsOpen, setIsIncludeAdditionalsOpen] = useState(false);
+  const [isGroupsListOpen, setIsGroupsListOpen] = useState(false);
+  const [selectedAdditionals, setSelectedAdditionals] = useState<number[]>([]);
+  const { additionals, toggleAvailability } = useAdditionals();
+
+  const handleSelectAdditional = (id: number) => {
+    setSelectedAdditionals(prev => 
+      prev.includes(id) 
+        ? prev.filter(item => item !== id)
+        : [...prev, id]
+    );
+  };
+
+  const selectedItems = additionals.filter(item => selectedAdditionals.includes(item.id));
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white rounded-2xl w-full max-w-[800px] p-6">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-2">
-            <button 
-              onClick={onClose}
-              className="text-zinc-500 hover:text-zinc-600"
-            >
-              <CaretLeft className="w-5 h-5" />
-            </button>
-            <h2 className="text-xl font-bold text-zinc-900">Novo grupo de adicionais</h2>
-          </div>
-          <button 
-            onClick={onOpenIncludeAdditionals}
-            className="bg-[#FF5900] text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-[#FF5900]/90 flex items-center gap-2"
-          >
-            <span>+</span>
-            Incluir grupo de adicional
-          </button>
-        </div>
-
-        {/* Formulário */}
-        <div className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-4 mb-8">
-          {/* Nome do grupo */}
-          <div>
-            <label className="block text-sm font-medium text-zinc-900 mb-2">
-              Nome do grupo
-            </label>
-            <input 
-              type="text"
-              placeholder="Adicionais para lanches"
-              className="w-full p-3 rounded-lg border border-zinc-200 outline-none text-zinc-900 placeholder:text-zinc-400"
-            />
-          </div>
-
-          {/* Obrigatório */}
-          <div>
-            <label className="block text-sm font-medium text-zinc-900 mb-2">
-              Obrigatório
-            </label>
-            <div className="relative">
-              <select 
-                className="w-full p-3 rounded-lg border border-zinc-200 outline-none text-zinc-900 bg-white appearance-none pr-10"
+    <>
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="bg-white rounded-2xl w-full max-w-[800px] p-6">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={onClose}
+                className="text-zinc-500 hover:text-zinc-600"
               >
-                <option>Sim</option>
-                <option>Não</option>
-              </select>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <svg className="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
+                <CaretLeft className="w-5 h-5" />
+              </button>
+              <h2 className="text-xl font-bold text-zinc-900">Novo grupo de adicionais</h2>
+            </div>
+            <button 
+              onClick={() => setIsGroupsListOpen(true)}
+              className="bg-[#FF5900] text-white px-4 py-2 rounded-lg flex items-center gap-1 text-sm font-medium"
+            >
+              <span>+</span>
+              Incluir grupo de adicional
+            </button>
+          </div>
+
+          {/* Formulário */}
+          <div className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-4 mb-8">
+            {/* Nome do grupo */}
+            <div>
+              <label className="block text-sm font-medium text-zinc-900 mb-2">
+                Nome do grupo
+              </label>
+              <input 
+                type="text"
+                placeholder="Adicionais para lanches"
+                className="w-full p-3 rounded-lg border border-zinc-200 outline-none text-zinc-900 placeholder:text-zinc-400"
+              />
+            </div>
+
+            {/* Obrigatório */}
+            <div>
+              <label className="block text-sm font-medium text-zinc-900 mb-2">
+                Obrigatório
+              </label>
+              <div className="relative">
+                <select 
+                  className="w-full p-3 rounded-lg border border-zinc-200 outline-none text-zinc-900 bg-white appearance-none pr-10"
+                >
+                  <option>Sim</option>
+                  <option>Não</option>
+                </select>
+                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                  <svg className="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            {/* Mínimo */}
+            <div>
+              <label className="block text-sm font-medium text-zinc-900 mb-2">
+                Mínimo
+              </label>
+              <div className="flex items-center border border-zinc-200 rounded-lg">
+                <button className="p-3 text-zinc-400 hover:text-zinc-600">-</button>
+                <input 
+                  type="text"
+                  value="1"
+                  className="w-full text-center border-none outline-none text-zinc-900"
+                  readOnly
+                />
+                <button className="p-3 text-[#FF5900] hover:text-[#FF5900]/80">+</button>
+              </div>
+            </div>
+
+            {/* Máximo */}
+            <div>
+              <label className="block text-sm font-medium text-zinc-900 mb-2">
+                Máximo
+              </label>
+              <div className="flex items-center border border-zinc-200 rounded-lg">
+                <button className="p-3 text-zinc-400 hover:text-zinc-600">-</button>
+                <input 
+                  type="text"
+                  value="3"
+                  className="w-full text-center border-none outline-none text-zinc-900"
+                  readOnly
+                />
+                <button className="p-3 text-[#FF5900] hover:text-[#FF5900]/80">+</button>
               </div>
             </div>
           </div>
 
-          {/* Mínimo */}
-          <div>
-            <label className="block text-sm font-medium text-zinc-900 mb-2">
-              Mínimo
-            </label>
-            <div className="flex items-center border border-zinc-200 rounded-lg">
-              <button className="p-3 text-zinc-400 hover:text-zinc-600">-</button>
-              <input 
-                type="text"
-                value="1"
-                className="w-full text-center border-none outline-none text-zinc-900"
-                readOnly
-              />
-              <button className="p-3 text-[#FF5900] hover:text-[#FF5900]/80">+</button>
+          {/* Seção de Adicionais */}
+          <div className="mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-medium text-zinc-900">Adicionais neste grupo</h3>
+              <button 
+                onClick={() => setIsIncludeAdditionalsOpen(true)}
+                className="text-[#FF5900] bg-[#FFF1EC] hover:bg-[#FFF1EC]/80 px-3 py-1.5 rounded-lg flex items-center gap-1 text-sm"
+              >
+                <span>+</span>
+                Incluir adicional
+              </button>
             </div>
+
+            {selectedItems.length > 0 ? (
+              <div className="space-y-4">
+                {/* Header da tabela */}
+                <div className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-4 pb-2">
+                  <div className="w-6"></div>
+                  <div className="text-sm text-zinc-500">Informações</div>
+                  <div className="text-sm text-zinc-500">Preço</div>
+                  <div className="text-sm text-zinc-500">Preço promocional</div>
+                  <div className="text-sm text-zinc-500">Disponibilidade</div>
+                  <div className="text-sm text-zinc-500">Ações</div>
+                </div>
+
+                {selectedItems.map(additional => (
+                  <div 
+                    key={additional.id}
+                    className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-4 items-center py-4 border-b border-zinc-100"
+                  >
+                    {/* Checkbox */}
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        className="w-4 h-4 rounded border-zinc-300 text-[#FF5900] focus:ring-[#FF5900]"
+                      />
+                    </div>
+
+                    {/* Informações */}
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 relative rounded-lg overflow-hidden">
+                        <Image
+                          src={additional.image}
+                          alt=""
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div>
+                        <h4 className="text-[#FF5900] font-medium">{additional.name}</h4>
+                        <p className="text-sm text-zinc-500">{additional.description}</p>
+                      </div>
+                    </div>
+
+                    {/* Preço */}
+                    <div className="text-zinc-900 whitespace-nowrap">
+                      R$ {additional.price}
+                    </div>
+
+                    {/* Preço promocional */}
+                    <div className="text-zinc-900 whitespace-nowrap">
+                      R$ {additional.promoPrice}
+                    </div>
+
+                    {/* Toggle de disponibilidade */}
+                    <div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input 
+                          type="checkbox" 
+                          className="sr-only peer"
+                          checked={additional.isAvailable}
+                          onChange={() => toggleAvailability(additional.id)}
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                      </label>
+                    </div>
+
+                    {/* Ações */}
+                    <div className="flex items-center gap-2">
+                      <button className="text-red-500 hover:text-red-600">
+                        <span className="sr-only">Remover</span>
+                        ⊖
+                      </button>
+                      <button className="text-[#FF5900] hover:text-[#FF5900]/80">
+                        <span className="sr-only">Editar</span>
+                        ✎
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-8 border-2 border-dashed border-zinc-200 rounded-lg">
+                <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mb-4">
+                  <Image 
+                    src="/images/icons/prato.svg"
+                    alt="Adicionais" 
+                    width={72}
+                    height={72}
+                  />
+                </div>
+                <p className="text-zinc-400 text-center mb-2">Ops! Este grupo ainda não possui adicionais.</p>
+                <p className="text-zinc-400 text-center">
+                  Clique em <span className="text-[#FF5900]">incluir adicional</span> e ofereça mais opções para turbinar seu produto!
+                </p>
+              </div>
+            )}
           </div>
 
-          {/* Máximo */}
-          <div>
-            <label className="block text-sm font-medium text-zinc-900 mb-2">
-              Máximo
-            </label>
-            <div className="flex items-center border border-zinc-200 rounded-lg">
-              <button className="p-3 text-zinc-400 hover:text-zinc-600">-</button>
-              <input 
-                type="text"
-                value="3"
-                className="w-full text-center border-none outline-none text-zinc-900"
-                readOnly
-              />
-              <button className="p-3 text-[#FF5900] hover:text-[#FF5900]/80">+</button>
-            </div>
-          </div>
-        </div>
-
-        {/* Seção de Adicionais */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-medium text-zinc-900">Adicionais neste grupo</h3>
+          {/* Footer */}
+          <div className="flex justify-end pt-2">
             <button 
-              onClick={onOpenIncludeAdditionals}
-              className="text-[#FF5900] bg-[#FFF1EC] hover:bg-[#FFF1EC]/80 px-3 py-1.5 rounded-lg flex items-center gap-1 text-sm"
+              onClick={onClose}
+              className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
             >
-              <span>+</span>
-              Incluir adicional
+              Finalizar
             </button>
           </div>
-          <div className="flex flex-col items-center justify-center py-8 border-2 border-dashed border-zinc-200 rounded-lg">
-            <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mb-4">
-              <Image 
-                src="/images/icons/prato.svg"
-                alt="Adicionais" 
-                width={72}
-                height={72}
-              />
-            </div>
-            <p className="text-zinc-400 text-center mb-2">Ops! Este grupo ainda não possui adicionais.</p>
-            <p className="text-zinc-400 text-center">
-              Clique em <span className="text-[#FF5900]">incluir adicional</span> e ofereça mais opções para turbinar seu produto!
-            </p>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="flex justify-end pt-2">
-          <button 
-            onClick={onClose}
-            className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
-          >
-            Finalizar
-          </button>
         </div>
       </div>
-    </div>
+
+      <IncludeAdditionalsModal 
+        isOpen={isIncludeAdditionalsOpen}
+        onBack={() => setIsIncludeAdditionalsOpen(false)}
+        selectedAdditionals={selectedAdditionals}
+        onSelect={handleSelectAdditional}
+      />
+
+      <AdditionalGroupsListModal
+        isOpen={isGroupsListOpen}
+        onBack={() => setIsGroupsListOpen(false)}
+      />
+    </>
   );
 }

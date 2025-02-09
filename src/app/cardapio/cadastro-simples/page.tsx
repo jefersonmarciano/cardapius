@@ -8,7 +8,6 @@ import { ProductSection } from './components/sections/ProductSection';
 import { AdditionalsSection } from './components/sections/AdditionalsSection';
 import { CategoryModal } from './components/modals/CategoryModal';
 import { AdditionalsGroupModal } from './components/modals/AdditionalsGroupModal';
-import { IncludeAdditionalsModal } from './components/modals/IncludeAdditionalsModal';
 
 export default function CadastroSimplesPage() {
   // Estados de navegação
@@ -19,23 +18,9 @@ export default function CadastroSimplesPage() {
   // Estados dos modais
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [isAdditionalsModalOpen, setIsAdditionalsModalOpen] = useState(false);
-  const [isIncludeAdditionalsModalOpen, setIsIncludeAdditionalsModalOpen] = useState(false);
 
   // Estados de dados
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-
-  // Dados estáticos de exemplo
-  const additionals = [
-    {
-      id: 1,
-      image: '/images/produtos/maionese.jpg',
-      name: 'Maionese',
-      description: 'Maionese temperada da casa',
-      price: '50,00',
-      promoPrice: '50,00',
-      isAvailable: true
-    }
-  ];
 
   // Handlers
   const handleCategoryChange = (category: string) => {
@@ -110,16 +95,6 @@ export default function CadastroSimplesPage() {
         <AdditionalsGroupModal 
           isOpen={isAdditionalsModalOpen}
           onClose={() => setIsAdditionalsModalOpen(false)}
-          onOpenIncludeAdditionals={() => {
-            setIsAdditionalsModalOpen(false);
-            setIsIncludeAdditionalsModalOpen(true);
-          }}
-        />
-
-        <IncludeAdditionalsModal 
-          isOpen={isIncludeAdditionalsModalOpen}
-          onClose={() => setIsIncludeAdditionalsModalOpen(false)}
-          additionals={additionals}
         />
       </div>
     </div>

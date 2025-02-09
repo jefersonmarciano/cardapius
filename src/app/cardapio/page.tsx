@@ -1,92 +1,128 @@
 "use client"
 
-import { CaretLeft } from "@phosphor-icons/react";
-import Link from "next/link";
-import Image from 'next/image';
+import { MagnifyingGlass, WhatsappLogo, ShareNetwork, PencilSimple, Trash } from "@phosphor-icons/react";
+import Image from "next/image";
+import { useCardapio } from "./hooks/useCardapio";
 
 export default function CardapioPage() {
+  const { 
+    products, 
+    selectedProducts,
+    searchProducts,
+    filterByCategory,
+    setOrderBy,
+    toggleProductSelection
+  } = useCardapio();
+
   return (
-    <div className="p-8">
-      <div className="flex items-center gap-2 mb-8">
-        <Link href="/" className="text-zinc-500 hover:text-zinc-600">
-          <CaretLeft className="w-5 h-5" />
-        </Link>
-        <h1 className="text-2xl font-medium text-zinc-900">Novo produto</h1>
-      </div>
-
-      <div className="max-w-[100%] space-y-2">
-        {/* Cadastro simples */}
-        <Link href="/cardapio/cadastro-simples">
-          <div className="bg-white p-6 rounded-2xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 hover:border-[#FF5900] group">
-            <div className="flex gap-4">
-              <div className="w-16 h-16 relative">
-                <Image 
-                  src="/images/icons/burgeCadastro.png"
-                  alt="Burger" 
-                  width={64}
-                  height={64}
-                  className="object-contain grayscale group-hover:grayscale-0 transition-all duration-200"
-                />
-              </div>
-              <div>
-                <h2 className="text-lg font-medium text-zinc-400 group-hover:text-zinc-900">Cadastro simples</h2>
-                <p className="text-zinc-400 group-hover:text-zinc-500">Ideal para lanches, pratos, sobremesas, etc.</p>
-              </div>
-            </div>
-          </div>
-        </Link>
-
-        {/* Cadastro de bebidas */}
-        <div className="bg-white p-6 rounded-2xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 hover:border-[#FF5900] group">
-          <div className="flex gap-4">
-            <div className="w-16 h-16 relative">
-              <Image 
-                src="/images/icons/bebidas.png"
-                alt="Drinks" 
-                width={64}
-                height={64}
-                className="object-contain grayscale group-hover:grayscale-0 transition-all duration-200"
-              />
-            </div>
-            <div>
-              <h2 className="text-lg font-medium text-zinc-400 group-hover:text-zinc-900">Cadastro de bebidas</h2>
-              <p className="text-zinc-400 group-hover:text-zinc-500">Inclua em seu cardápio sucos, refrigerantes, cervejas, etc.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Cadastro de pizza */}
-        <Link href="/cardapio/cadastro-pizza" className="block">
-          <div className="bg-white p-6 rounded-2xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 hover:border-[#FF5900] group">
-            <div className="flex gap-4">
-              <div className="w-16 h-16 relative">
-                <div 
-                  className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                  style={{
-                    background: 'radial-gradient(circle, rgba(255,89,0,0.15) 0%, rgba(255,89,0,0.1) 40%, rgba(255,89,0,0) 70%)'
-                  }}
-                />
-                <Image 
-                  src="/images/icons/pizza.png"
-                  alt="Pizza" 
-                  width={64}
-                  height={64}
-                  className="object-contain relative z-10 grayscale group-hover:grayscale-0 transition-all duration-200"
-                />
-              </div>
-              <div>
-                <h2 className="text-lg font-medium text-zinc-400 group-hover:text-zinc-900">Cadastro de pizza</h2>
-                <p className="text-zinc-400 group-hover:text-zinc-500">Defina com clareza a quantidade de sabores, bordas e tipo de massa.</p>
-              </div>
-            </div>
-          </div>
-        </Link>
-
-        <div className="flex justify-end pt-4">
-          <button className="bg-[#FF5900] text-white px-8 py-3 rounded-lg text-sm font-medium hover:bg-[#FF5900]/90">
-            Continuar
+    <div className="flex-1 h-screen bg-[#F8F8F8]  overflow-hidden">
+      <div className="h-full overflow-y-auto scrollbar-none">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-[32px] font-bold text-zinc-900">Cardápio</h1>
+          <button className="bg-[#FF5900] text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-[#FF5900]/90">
+            <span className="text-lg">+</span>
+            <span className="font-medium">Cadastrar produto</span>
           </button>
         </div>
+
+        {/* Filters */}
+        <div className="flex gap-4 mb-6">
+          <div className="flex-1 relative">
+            <MagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 w-5 h-5" />
+            <input 
+              type="text"
+              placeholder="Buscar produtos por nome, referência ou tags"
+              onChange={(e) => searchProducts(e.target.value)}
+              className="w-full pl-12 pr-4 py-3 rounded-full border border-zinc-200 outline-none text-sm"
+            />
+          </div>
+          <select 
+            onChange={(e) => filterByCategory(e.target.value)}
+            className="px-4 py-3 rounded-full border border-zinc-200 outline-none text-sm min-w-[180px] text-zinc-500"
+          >
+            <option value="">Categorias</option>
+            <option value="Lanches">Lanches</option>
+            <option value="Hamburguer">Hamburguer</option>
+          </select>
+          <select 
+            onChange={(e) => setOrderBy(e.target.value)}
+            className="px-4 py-3 rounded-full border border-zinc-200 outline-none text-sm min-w-[200px] text-zinc-500"
+            defaultValue="Mais novos"
+          >
+            <option value="Mais novos">Ordenar por: Mais novos</option>
+          </select>
+        </div>
+
+        {/* Table Headers */}
+        <div className="grid grid-cols-[auto_1fr_180px_180px_200px_150px] px-6 py-4 text-sm text-zinc-400">
+          <div className="w-6">
+            <input type="checkbox" className="w-4 h-4 rounded border-zinc-300" />
+          </div>
+          <div>Produto</div>
+          <div className="text-center">Preço</div>
+          <div className="text-center">Preço promocional</div>
+          <div className="text-center">Categoria</div>
+          <div className="text-center">Ações</div>
+        </div>
+
+        {/* Products List */}
+        {products.map((product) => (
+          <div 
+            key={product.id}
+            className="bg-white rounded-xl mb-2 px-6 py-4"
+          >
+            <div className="grid grid-cols-[auto_1fr_180px_180px_200px_150px] items-center">
+              <div>
+                <input 
+                  type="checkbox"
+                  checked={selectedProducts.includes(product.id)}
+                  onChange={() => toggleProductSelection(product.id)}
+                  className="w-4 h-4 rounded border-zinc-300" 
+                />
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 relative rounded-lg overflow-hidden">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <h4 className="text-[#FF5900] font-medium">{product.name}</h4>
+                  <p className="text-sm text-zinc-400 line-clamp-2 max-w-[400px]">{product.description}</p>
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <div className="text-zinc-700 whitespace-nowrap rounded-lg border border-zinc-100 px-4 py-2">
+                  R$ {product.price}
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <div className="text-zinc-700 whitespace-nowrap rounded-lg border border-zinc-100 px-4 py-2">
+                  R$ {product.promoPrice}
+                </div>
+              </div>
+              <div className="text-zinc-500 text-center">{product.category}</div>
+              <div className="flex items-center justify-center gap-2">
+                <button className="w-8 h-8 flex items-center justify-center text-emerald-500 hover:bg-emerald-50 rounded-lg">
+                  <WhatsappLogo className="w-5 h-5" />
+                </button>
+                <button className="w-8 h-8 flex items-center justify-center text-blue-500 hover:bg-blue-50 rounded-lg">
+                  <ShareNetwork className="w-5 h-5" />
+                </button>
+                <button className="w-8 h-8 flex items-center justify-center text-[#FF5900] hover:bg-[#FFF1EC] rounded-lg">
+                  <PencilSimple className="w-5 h-5" />
+                </button>
+                <button className="w-8 h-8 flex items-center justify-center text-red-500 hover:bg-red-50 rounded-lg">
+                  <Trash className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

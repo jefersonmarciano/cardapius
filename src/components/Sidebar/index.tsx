@@ -1,24 +1,44 @@
 "use client"
 
-import { House, Moped, StarHalf, Users, ChatText, Gear, ClockCounterClockwise } from "@phosphor-icons/react";
+import { House, Moped, Users, ChatText, Gear, ClockCounterClockwise, ClipboardText } from "@phosphor-icons/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from 'next/image';
 
 export function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [isOrdersOpen, setIsOrdersOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
     { icon: House, label: 'Dashboard', href: '/' },
     { icon: Moped, label: 'Delivery', href: '/delivery' },
-    { icon: StarHalf, label: 'Cardápio', href: '#',
+    {
+      icon: ClipboardText,
+      label: 'Cardápio',
+      href: '/cardapio',
+      onClick: () => {
+        router.push('/cardapio');
+        return false;
+      },
       submenu: [
-        { label: 'Produtos', href: '/cardapio' },
-        { label: 'Categorias', href: '/cardapio/categorias' },
-        { label: 'Adicionais', href: '/cardapio/adicionais' }
+        {
+          label: 'Produtos',
+          href: '/cardapio/produtos',
+          onClick: () => router.push('/cardapio/produtos')
+        },
+        {
+          label: 'Categorias',
+          href: '/cardapio/categorias',
+          onClick: () => router.push('/cardapio/categorias')
+        },
+        {
+          label: 'Adicionais',
+          href: '/cardapio/adicionais',
+          onClick: () => router.push('/cardapio/adicionais')
+        }
       ]
     },
     { icon: ClockCounterClockwise, label: 'Pedidos', href: '/pedidos',
@@ -42,7 +62,7 @@ export function Sidebar() {
 
   return (
     <aside className="w-[240px] bg-white flex flex-col h-screen">
-      <div className="p-6">
+      <div className="p-6 flex-shrink-0">
         <Image 
           src="/images/icons/Logo.png" 
           alt="Cardapius" 
@@ -54,7 +74,7 @@ export function Sidebar() {
         />
       </div>
 
-      <nav className="flex-1 overflow-y-auto scrollbar-none px-6">
+      <nav className="flex-1 overflow-y-auto scrollbar-none px-6 min-h-0">
         <div className="space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
@@ -66,8 +86,14 @@ export function Sidebar() {
                 <div key={item.label}>
                   <button
                     onClick={() => {
-                      if (isOrders) setIsOrdersOpen(!isOrdersOpen);
-                      if (isMenu) setIsMenuOpen(!isMenuOpen);
+                      if (isOrders) {
+                        setIsOrdersOpen(!isOrdersOpen);
+                        router.push(item.href);
+                      }
+                      if (isMenu) {
+                        setIsMenuOpen(!isMenuOpen);
+                        router.push(item.href);
+                      }
                     }}
                     className={`
                       w-full flex items-center gap-3 p-3 rounded-lg transition-colors
@@ -83,23 +109,13 @@ export function Sidebar() {
                   
                   {((isOrders && isOrdersOpen) || (isMenu && isMenuOpen)) && (
                     <div className="ml-11 mt-2 space-y-2">
-                      {item.submenu?.map((subitem) => (
+                      {item.submenu?.map((subitem: any, index: number) => (
                         <Link
-                          key={subitem.href}
+                          key={index}
                           href={subitem.href}
-                          className={`
-                            flex items-center py-2 px-3 rounded-lg text-sm transition-colors
-                            ${pathname === subitem.href 
-                              ? 'text-[#FF5900] font-medium' 
-                              : 'text-zinc-500 hover:text-[#FF5900]'
-                            }
-                          `}
+                          className="block text-sm text-zinc-500 hover:text-zinc-900"
+                          onClick={subitem.onClick}
                         >
-                          {subitem.count && (
-                            <span className="mr-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
-                              {subitem.count}
-                            </span>
-                          )}
                           {subitem.label}
                         </Link>
                       ))}
@@ -127,7 +143,7 @@ export function Sidebar() {
         </div>
       </nav>
 
-      <div className="p-6">
+      <div className="mt-auto p-6 flex-shrink-0">
         <div className="bg-emerald-500 p-6 rounded-3xl relative overflow-hidden">
           {/* Pontos decorativos */}
           <div className="absolute top-4 right-4 grid grid-cols-4 gap-1">

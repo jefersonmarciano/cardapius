@@ -3,27 +3,27 @@
 import { CaretLeft, MagnifyingGlass } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useAdditionals } from '../../hooks/useAdditionals';
+import { useState } from "react";
 
 interface IncludeAdditionalsModalProps {
   isOpen: boolean;
-  onClose: () => void;
-  additionals: {
-    id: number;
-    image: string;
-    name: string;
-    description: string;
-    price: string;
-    promoPrice: string;
-    isAvailable: boolean;
-  }[];
+  onBack: () => void;
+  selectedAdditionals?: number[];
+  onSelect?: (id: number) => void;
 }
 
-export function IncludeAdditionalsModal({ isOpen, onClose }: IncludeAdditionalsModalProps) {
+export function IncludeAdditionalsModal({ 
+  isOpen, 
+  onBack,
+  selectedAdditionals = [],
+  onSelect 
+}: IncludeAdditionalsModalProps) {
   const {
     additionals,
     toggleAvailability,
     searchAdditionals
   } = useAdditionals();
+  const [selectedAdditionalsState, setSelectedAdditionalsState] = useState<number[]>(selectedAdditionals);
 
   if (!isOpen) return null;
 
@@ -33,7 +33,7 @@ export function IncludeAdditionalsModal({ isOpen, onClose }: IncludeAdditionalsM
         {/* Header */}
         <div className="flex items-center gap-2 p-6 border-b border-zinc-100">
           <button 
-            onClick={onClose}
+            onClick={onBack}
             className="text-zinc-500 hover:text-zinc-600"
           >
             <CaretLeft className="w-5 h-5" />
@@ -109,8 +109,22 @@ export function IncludeAdditionalsModal({ isOpen, onClose }: IncludeAdditionalsM
                   </div>
 
                   {/* Botão de adicionar */}
-                  <button className="w-8 h-8 flex items-center justify-center text-emerald-500 hover:bg-emerald-50 rounded-lg">
-                    <span className="text-xl">+</span>
+                  <button 
+                    className={`w-8 h-8 flex items-center justify-center ${
+                      selectedAdditionalsState.includes(additional.id)
+                        ? 'text-white bg-emerald-500 hover:bg-emerald-600'
+                        : 'text-emerald-500 hover:bg-emerald-50'
+                    } rounded-lg`}
+                    onClick={() => {
+                      if (selectedAdditionalsState.includes(additional.id)) {
+                        setSelectedAdditionalsState(selectedAdditionalsState.filter((id) => id !== additional.id));
+                      } else {
+                        setSelectedAdditionalsState([...selectedAdditionalsState, additional.id]);
+                      }
+                      onSelect?.(additional.id);
+                    }}
+                  >
+                    <span className="text-xl">{selectedAdditionalsState.includes(additional.id) ? '✓' : '+'}</span>
                   </button>
                 </div>
               ))}
@@ -121,6 +135,7 @@ export function IncludeAdditionalsModal({ isOpen, onClose }: IncludeAdditionalsM
         {/* Footer */}
         <div className="flex justify-end p-6 border-t border-zinc-100">
           <button 
+            onClick={onBack}
             className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
           >
             Continuar
