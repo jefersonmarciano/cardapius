@@ -5,5 +5,4 @@
     "@next/next/no-img-element": "warn",
     "@typescript-eslint/no-explicit-any": "off"
   }
-
-} 
+}
