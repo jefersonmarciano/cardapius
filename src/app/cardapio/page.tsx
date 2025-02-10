@@ -15,8 +15,8 @@ export default function CardapioPage() {
   } = useCardapio();
 
   return (
-    <div className="flex-1 h-screen bg-[#F8F8F8]  overflow-hidden">
-      <div className="h-full overflow-y-auto scrollbar-none">
+    <div className="flex-1 h-screen bg-[#F8F8F8] overflow-hidden">
+      <div className="h-full overflow-y-auto scrollbar-none p-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-[32px] font-bold text-zinc-900">Cardápio</h1>

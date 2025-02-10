@@ -83,7 +83,9 @@ export default function CardapioPage() {
         </Link>
 
         <div className="flex justify-end pt-4">
-          <button className="bg-[#FF5900] text-white py-3 rounded-lg text-sm font-medium hover:bg-[#FF5900]/90">
+          <button 
+            className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90 transition-colors"
+          >
             Continuar
           </button>
         </div>

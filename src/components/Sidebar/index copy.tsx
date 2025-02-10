@@ -8,28 +8,11 @@ import {
   Gear,
   ClockCounterClockwise,
   ClipboardText,
-  Icon,
 } from "@phosphor-icons/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
-
-// Interfaces para tipagem
-interface SubMenuItem {
-  label: string;
-  href: string;
-  count?: number;
-  onClick?: () => void;
-}
-
-interface MenuItem {
-  icon: Icon;
-  label: string;
-  href: string;
-  onClick?: () => boolean | void;
-  submenu?: SubMenuItem[];
-}
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -37,7 +20,7 @@ export function Sidebar() {
   const [isOrdersOpen, setIsOrdersOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const menuItems: MenuItem[] = [
+  const menuItems = [
     { icon: House, label: "Dashboard", href: "/" },
     { icon: Moped, label: "Delivery", href: "/delivery" },
     {
@@ -83,25 +66,9 @@ export function Sidebar() {
     { icon: Gear, label: "Configurações", href: "/configuracoes" },
   ];
 
-  const handleMenuClick = (isOrders: boolean, isMenu: boolean): void => {
+  const handleMenuClick = (isOrders: boolean, isMenu: boolean) => {
     if (!isOrders) setIsOrdersOpen(false);
     if (!isMenu) setIsMenuOpen(false);
-  };
-
-  const renderSubmenuItems = (submenu: SubMenuItem[]) => {
-    return submenu.map((subitem, index) => (
-      <Link
-        key={index}
-        href={subitem.href}
-        className="block text-sm text-zinc-500 hover:text-zinc-900"
-        onClick={subitem.onClick}
-      >
-        {subitem.label}
-        {subitem.count !== undefined && (
-          <span className="ml-2">{subitem.count}</span>
-        )}
-      </Link>
-    ));
   };
 
   return (
@@ -163,12 +130,20 @@ export function Sidebar() {
                     </span>
                   </button>
 
-                  {((isOrders && isOrdersOpen) || (isMenu && isMenuOpen)) &&
-                    item.submenu && (
-                      <div className="ml-11 mt-2 space-y-2">
-                        {renderSubmenuItems(item.submenu)}
-                      </div>
-                    )}
+                  {((isOrders && isOrdersOpen) || (isMenu && isMenuOpen)) && (
+                    <div className="ml-11 mt-2 space-y-2">
+                      {item.submenu?.map((subitem: any, index: number) => (
+                          <Link
+                            key={index}
+                            href={subitem.href}
+                            className="block text-sm text-zinc-500 hover:text-zinc-900"
+                            onClick={subitem?.onClick}
+                          >
+                            {subitem.label}
+                          </Link>
+                        ))}
+                    </div>
+                  )}
                 </div>
               );
             }

@@ -2,10 +2,10 @@
 
 import { CaretLeft } from "@phosphor-icons/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IncludeAdditionalsModal } from "./IncludeAdditionalsModal";
-import { useAdditionals } from "../../hooks/useAdditionals";
 import { AdditionalGroupsListModal } from './AdditionalGroupsListModal';
+import { useAdditionals } from "@/contexts/AdditionalsContexts";
 
 interface AdditionalsGroupModalProps {
   isOpen: boolean;
@@ -18,18 +18,7 @@ export function AdditionalsGroupModal({
 }: AdditionalsGroupModalProps) {
   const [isIncludeAdditionalsOpen, setIsIncludeAdditionalsOpen] = useState(false);
   const [isGroupsListOpen, setIsGroupsListOpen] = useState(false);
-  const [selectedAdditionals, setSelectedAdditionals] = useState<number[]>([]);
-  const { additionals, toggleAvailability } = useAdditionals();
-
-  const handleSelectAdditional = (id: number) => {
-    setSelectedAdditionals(prev => 
-      prev.includes(id) 
-        ? prev.filter(item => item !== id)
-        : [...prev, id]
-    );
-  };
-
-  const selectedItems = additionals.filter(item => selectedAdditionals.includes(item.id));
+  const { selectedAdditionals } = useAdditionals();
 
   if (!isOpen) return null;
 
@@ -139,7 +128,24 @@ export function AdditionalsGroupModal({
               </button>
             </div>
 
-            {selectedItems.length > 0 ? (
+            {selectedAdditionals.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-8 border-2 border-dashed border-zinc-200 rounded-lg">
+                <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mb-4">
+                  <Image 
+                    src="/images/icons/prato.svg"
+                    alt="Adicionais" 
+                    width={72}
+                    height={72}
+                  />
+                </div>
+                <p className="text-zinc-400 text-center mb-2">
+                  Ops! Este grupo ainda não possui adicionais.
+                </p>
+                <p className="text-zinc-400 text-center">
+                  Clique em <span className="text-[#FF5900]">incluir adicional</span> e ofereça mais opções para turbinar seu produto!
+                </p>
+              </div>
+            ) : (
               <div className="space-y-4">
                 {/* Header da tabela */}
                 <div className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-4 pb-2">
@@ -151,7 +157,7 @@ export function AdditionalsGroupModal({
                   <div className="text-sm text-zinc-500">Ações</div>
                 </div>
 
-                {selectedItems.map(additional => (
+                {selectedAdditionals.map(additional => (
                   <div 
                     key={additional.id}
                     className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-4 items-center py-4 border-b border-zinc-100"
@@ -181,23 +187,22 @@ export function AdditionalsGroupModal({
                     </div>
 
                     {/* Preço */}
-                    <div className="text-zinc-900 whitespace-nowrap">
-                      R$ {additional.price}
+                    <div className="text-zinc-900">
+                      R$ {additional.price.toFixed(2).replace('.', ',')}
                     </div>
 
                     {/* Preço promocional */}
-                    <div className="text-zinc-900 whitespace-nowrap">
-                      R$ {additional.promoPrice}
+                    <div className="text-zinc-900">
+                      R$ {additional.promoPrice.toFixed(2).replace('.', ',')}
                     </div>
 
                     {/* Toggle de disponibilidade */}
                     <div>
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input 
-                          type="checkbox" 
+                          type="checkbox"
                           className="sr-only peer"
                           checked={additional.isAvailable}
-                          onChange={() => toggleAvailability(additional.id)}
                         />
                         <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
                       </label>
@@ -217,21 +222,6 @@ export function AdditionalsGroupModal({
                   </div>
                 ))}
               </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center py-8 border-2 border-dashed border-zinc-200 rounded-lg">
-                <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mb-4">
-                  <Image 
-                    src="/images/icons/prato.svg"
-                    alt="Adicionais" 
-                    width={72}
-                    height={72}
-                  />
-                </div>
-                <p className="text-zinc-400 text-center mb-2">Ops! Este grupo ainda não possui adicionais.</p>
-                <p className="text-zinc-400 text-center">
-                  Clique em <span className="text-[#FF5900]">incluir adicional</span> e ofereça mais opções para turbinar seu produto!
-                </p>
-              </div>
             )}
           </div>
 
@@ -250,8 +240,6 @@ export function AdditionalsGroupModal({
       <IncludeAdditionalsModal 
         isOpen={isIncludeAdditionalsOpen}
         onBack={() => setIsIncludeAdditionalsOpen(false)}
-        selectedAdditionals={selectedAdditionals}
-        onSelect={handleSelectAdditional}
       />
 
       <AdditionalGroupsListModal
