@@ -3,6 +3,7 @@
 import { MagnifyingGlass, WhatsappLogo, ShareNetwork, PencilSimple, Trash } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useCardapio } from "./hooks/useCardapio";
+import Link from "next/link";
 
 export default function CardapioPage() {
   const { 
@@ -20,10 +21,12 @@ export default function CardapioPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-[32px] font-bold text-zinc-900">Cardápio</h1>
-          <button className="bg-[#FF5900] text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-[#FF5900]/90">
-            <span className="text-lg">+</span>
-            <span className="font-medium">Cadastrar produto</span>
-          </button>
+          <Link 
+            href="/cardapio/produtos" 
+            className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
+          >
+            Cadastrar produto
+          </Link>
         </div>
 
         {/* Filters */}

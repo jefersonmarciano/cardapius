@@ -54,7 +54,7 @@ export function Sidebar() {
       label: "Pedidos",
       href: "/pedidos",
       submenu: [
-        { label: "Em aberto", href: "/pedidos/em-aberto", count: 8 },
+        { label: "Em aberto", href: "/pedidos/em-aberto"},
         { label: "Em preparo", href: "/pedidos/em-preparo" },
         { label: "Aguardando envio", href: "/pedidos/aguardando-envio" },
         { label: "Enviados", href: "/pedidos/enviados" },

@@ -51,8 +51,8 @@ export function Sidebar() {
       submenu: [
         {
           label: "Produtos",
-          href: "/cardapio/produtos",
-          onClick: () => router.push("/cardapio/produtos"),
+          href: "/cardapio",
+          onClick: () => router.push("/cardapio"),
         },
         {
           label: "Categorias",
