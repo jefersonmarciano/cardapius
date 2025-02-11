@@ -63,28 +63,7 @@ export function AdditionalGroupsListModal({ isOpen, onBack }: AdditionalGroupsLi
             </div>
 
             {/* Itens da tabela */}
-            <div className="space-y-4">
-              {groups.map(group => (
-                <div 
-                  key={group.id}
-                  className="flex items-center justify-between py-4 border-b border-zinc-100"
-                >
-                  <div>
-                    <h4 className="text-zinc-900 font-medium mb-2">{group.name}</h4>
-                    <div className="flex gap-2">
-                      <span className="bg-emerald-50 text-emerald-500 px-3 py-1 rounded-full text-sm">Maionese</span>
-                      <span className="bg-emerald-50 text-emerald-500 px-3 py-1 rounded-full text-sm">Maionese</span>
-                      <span className="bg-emerald-50 text-emerald-500 px-3 py-1 rounded-full text-sm">Maionese</span>
-                      <span className="bg-emerald-50 text-emerald-500 px-3 py-1 rounded-full text-sm">Maionese</span>
-                      <span className="bg-emerald-50 text-emerald-500 px-3 py-1 rounded-full text-sm">+8</span>
-                    </div>
-                  </div>
-                  <button className="w-8 h-8 flex items-center justify-center text-emerald-500 hover:bg-emerald-50 rounded-lg">
-                    <span className="text-xl">+</span>
-                  </button>
-                </div>
-              ))}
-            </div>
+            
           </div>
         </div>
 

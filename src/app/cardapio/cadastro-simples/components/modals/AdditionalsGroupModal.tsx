@@ -231,7 +231,7 @@ export function AdditionalsGroupModal({
               onClick={onClose}
               className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
             >
-              Finalizar
+              Continuar
             </button>
           </div>
         </div>

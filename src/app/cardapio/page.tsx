@@ -1,9 +1,10 @@
 "use client"
 
-import { MagnifyingGlass, WhatsappLogo, ShareNetwork, PencilSimple, Trash } from "@phosphor-icons/react";
+import { MagnifyingGlass, WhatsappLogo, ShareNetwork, PencilSimple, Trash, DotsThree } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useCardapio } from "./hooks/useCardapio";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function CardapioPage() {
   const { 
@@ -14,6 +15,26 @@ export default function CardapioPage() {
     setOrderBy,
     toggleProductSelection
   } = useCardapio();
+
+  const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
+  const toggleDropdown = (id: number) => {
+    setOpenDropdownId(openDropdownId === id ? null : id);
+  };
+
+  const handleOptionClick = (option: string) => {
+    setSelectedOption(option);
+    setOpenDropdownId(null); // Fecha o dropdown após selecionar
+  };
+
+  const dropdownOptions = [
+    { id: 'pedidos', label: 'Pedidos' },
+    { id: 'produtos', label: 'Produtos' },
+    { id: 'categorias', label: 'Categorias' },
+    { id: 'adicionais', label: 'Adicionais' },
+    { id: 'excluir', label: 'Excluir', className: 'text-red-600' }
+  ];
 
   return (
     <div className="flex-1 h-screen bg-[#F8F8F8] overflow-hidden">
@@ -123,6 +144,34 @@ export default function CardapioPage() {
                   <Trash className="w-5 h-5" />
                 </button>
               </div>
+            </div>
+
+            {/* Dropdown */}
+            <div className="relative">
+              <button 
+                onClick={() => toggleDropdown(product.id)}
+                className="p-2 hover:bg-zinc-100 rounded-lg"
+              >
+                <DotsThree size={24} className="text-zinc-500" />
+              </button>
+
+              {openDropdownId === product.id && (
+                <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-zinc-100 py-1 z-10">
+                  {dropdownOptions.map((option) => (
+                    <button 
+                      key={option.id}
+                      className={`w-full px-4 py-2 text-left text-sm hover:bg-zinc-50 ${
+                        selectedOption === option.id 
+                          ? 'text-zinc-900 font-medium' // Opção selecionada
+                          : `text-zinc-500 ${option.className || ''}` // Opção não selecionada
+                      }`}
+                      onClick={() => handleOptionClick(option.id)}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         ))}

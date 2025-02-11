@@ -1,5 +1,8 @@
+"use client"
+
 import { PencilSimple, Trash } from "@phosphor-icons/react";
 import Image from "next/image";
+import { useState } from "react";
 
 interface ProductSectionProps {
   isEditing: boolean;
@@ -7,6 +10,23 @@ interface ProductSectionProps {
 }
 
 export function ProductSection({ isEditing, onEdit }: ProductSectionProps) {
+  const [productData, setProductData] = useState({
+    name: '',
+    description: '',
+    price: '',
+    promoPrice: '',
+    image: '/images/produtos/cheese-burger.jpg',
+    isAvailable: true
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { id, value } = e.target;
+    setProductData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+
   return (
     <div className="bg-white p-6 rounded-2xl border border-zinc-200">
       <h3 className="text-zinc-900 font-medium mb-2">Produto</h3>
@@ -19,12 +39,14 @@ export function ProductSection({ isEditing, onEdit }: ProductSectionProps) {
             <div className="space-y-6">
               {/* Nome do produto */}
               <div>
-                <label htmlFor="nome" className="block text-sm font-medium text-zinc-900 mb-2">
+                <label htmlFor="name" className="block text-sm font-medium text-zinc-900 mb-2">
                   Nome do produto
                 </label>
                 <input 
                   type="text"
-                  id="nome"
+                  id="name"
+                  value={productData.name}
+                  onChange={handleInputChange}
                   placeholder="Cheese Burger"
                   className="w-full p-3 rounded-lg border border-zinc-200 outline-none text-zinc-900 placeholder:text-zinc-400"
                 />
@@ -32,11 +54,13 @@ export function ProductSection({ isEditing, onEdit }: ProductSectionProps) {
 
               {/* Descrição */}
               <div>
-                <label htmlFor="descricao" className="block text-sm font-medium text-zinc-900 mb-2">
+                <label htmlFor="description" className="block text-sm font-medium text-zinc-900 mb-2">
                   Descrição
                 </label>
                 <textarea 
-                  id="descricao"
+                  id="description"
+                  value={productData.description}
+                  onChange={handleInputChange}
                   placeholder="Pão de brioche, queijo prato, hamburguer e maionese."
                   rows={6}
                   className="w-full p-3 rounded-lg border border-zinc-200 outline-none text-zinc-900 placeholder:text-zinc-400 resize-none"
@@ -52,7 +76,7 @@ export function ProductSection({ isEditing, onEdit }: ProductSectionProps) {
               <div className="border-2 border-dashed border-zinc-200 rounded-lg p-8 flex flex-col items-center justify-center">
                 <div className="w-16 h-16 bg-zinc-100 rounded-lg flex items-center justify-center mb-4">
                   <Image 
-                    src="/images/icons/burger-placeholder.png"
+                    src="/images/icons/burgerplaceholder.svg"
                     alt="Upload" 
                     width={32}
                     height={32}
@@ -78,12 +102,14 @@ export function ProductSection({ isEditing, onEdit }: ProductSectionProps) {
           <div className="flex items-center gap-4 mt-8">
             {/* Valor */}
             <div style={{ width: '33%' }}>
-              <label htmlFor="valor" className="block text-sm font-medium text-zinc-900 mb-2 whitespace-nowrap">
+              <label htmlFor="price" className="block text-sm font-medium text-zinc-900 mb-2 whitespace-nowrap">
                 Valor
               </label>
               <input 
                 type="text"
-                id="valor"
+                id="price"
+                value={productData.price}
+                onChange={handleInputChange}
                 placeholder="R$ 49,90"
                 className="w-full p-3 rounded-lg border border-zinc-200 outline-none text-zinc-900 placeholder:text-zinc-400"
               />
@@ -91,12 +117,14 @@ export function ProductSection({ isEditing, onEdit }: ProductSectionProps) {
 
             {/* Valor promocional */}
             <div style={{ width: '33%' }}>
-              <label htmlFor="valorPromocional" className="block text-sm font-medium text-zinc-900 mb-2 whitespace-nowrap">
+              <label htmlFor="promoPrice" className="block text-sm font-medium text-zinc-900 mb-2 whitespace-nowrap">
                 Valor promocional
               </label>
               <input 
                 type="text"
-                id="valorPromocional"
+                id="promoPrice"
+                value={productData.promoPrice}
+                onChange={handleInputChange}
                 placeholder="R$ 39,90"
                 className="w-full p-3 rounded-lg border border-zinc-200 outline-none text-zinc-900 placeholder:text-zinc-400"
               />
@@ -129,18 +157,26 @@ export function ProductSection({ isEditing, onEdit }: ProductSectionProps) {
         <div className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-4 items-center">
           <div className="w-12 h-12 relative">
             <Image
-              src="/images/produtos/cheese-burger.jpg"
+              src={productData.image}
               alt=""
               fill
               className="object-cover rounded-lg"
             />
           </div>
           <div>
-            <h4 className="text-[#FF5900] font-medium">Cheese Burger</h4>
-            <p className="text-sm text-zinc-500">Pão de brioche, queijo prato, hamburguer e maionese.</p>
+            <h4 className="text-[#FF5900] font-medium">
+              {productData.name || "Cheese Burger"}
+            </h4>
+            <p className="text-sm text-zinc-500">
+              {productData.description || "Pão de brioche, queijo prato, hamburguer e maionese."}
+            </p>
           </div>
-          <div className="text-zinc-900">R$ 50,00</div>
-          <div className="text-zinc-900">R$ 50,00</div>
+          <div className="text-zinc-900">
+            {productData.price ? `R$ ${productData.price}` : "R$ 50,00"}
+          </div>
+          <div className="text-zinc-900">
+            {productData.promoPrice ? `R$ ${productData.promoPrice}` : "R$ 50,00"}
+          </div>
           <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
           <div className="flex gap-2">
             <button 
