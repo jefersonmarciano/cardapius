@@ -17,7 +17,7 @@ export function AdditionalsGroupModal({
   onClose,
 }: AdditionalsGroupModalProps) {
   const [isIncludeAdditionalsOpen, setIsIncludeAdditionalsOpen] = useState(false);
-  const [isGroupsListOpen, setIsGroupsListOpen] = useState(false);
+  const [isGroupListModalOpen, setIsGroupListModalOpen] = useState(false);
   const { selectedAdditionals } = useAdditionals();
 
   if (!isOpen) return null;
@@ -38,7 +38,7 @@ export function AdditionalsGroupModal({
               <h2 className="text-xl font-bold text-zinc-900">Novo grupo de adicionais</h2>
             </div>
             <button 
-              onClick={() => setIsGroupsListOpen(true)}
+              onClick={() => setIsGroupListModalOpen(true)}
               className="bg-[#FF5900] text-white px-4 py-2 rounded-lg flex items-center gap-1 text-sm font-medium"
             >
               <span>+</span>
@@ -226,10 +226,10 @@ export function AdditionalsGroupModal({
           </div>
 
           {/* Footer */}
-          <div className="flex justify-end pt-2">
+          <div className="p-6 flex justify-end border-t border-zinc-100">
             <button 
-              onClick={onClose}
-              className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
+              onClick={() => setIsGroupListModalOpen(true)}
+              className="bg-[#FF5900] text-white px-8 py-3 rounded-full font-medium"
             >
               Continuar
             </button>
@@ -243,8 +243,8 @@ export function AdditionalsGroupModal({
       />
 
       <AdditionalGroupsListModal
-        isOpen={isGroupsListOpen}
-        onBack={() => setIsGroupsListOpen(false)}
+        isOpen={isGroupListModalOpen}
+        onBack={() => setIsGroupListModalOpen(false)}
       />
     </>
   );

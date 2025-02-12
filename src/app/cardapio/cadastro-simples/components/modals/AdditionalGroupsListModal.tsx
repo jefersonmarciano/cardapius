@@ -16,22 +16,17 @@ export function AdditionalGroupsListModal({ isOpen, onBack }: AdditionalGroupsLi
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
       <div className="bg-white rounded-2xl w-full max-w-[800px] max-h-[90vh] flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-zinc-100">
           <div className="flex items-center gap-2">
-            <button 
-              onClick={onBack}
-              className="text-zinc-500 hover:text-zinc-600"
-            >
+            <button onClick={onBack} className="text-zinc-500 hover:text-zinc-600">
               <CaretLeft className="w-5 h-5" />
             </button>
             <h2 className="text-2xl font-medium text-zinc-900">Grupos de adicionais</h2>
           </div>
-          <button 
-            className="bg-[#FF5900] text-white px-4 py-2 rounded-lg flex items-center gap-1 text-sm font-medium"
-          >
+          <button className="bg-[#FF5900] text-white px-4 py-2 rounded-lg flex items-center gap-1 text-sm font-medium">
             <span>+</span>
             Cadastrar novo grupo de adicional
           </button>
@@ -54,16 +49,42 @@ export function AdditionalGroupsListModal({ isOpen, onBack }: AdditionalGroupsLi
             />
           </div>
 
+          {/* Cabeçalho da lista */}
+          <div className="flex justify-between mb-4 text-sm">
+            <span className="text-zinc-500">Informações</span>
+            <span className="text-zinc-500">Ações</span>
+          </div>
+
           {/* Lista de Grupos */}
           <div className="space-y-4">
-            {/* Header da tabela */}
-            <div className="grid grid-cols-[1fr_auto] gap-4 pb-2">
-              <div className="text-sm text-zinc-500">Informações</div>
-              <div className="text-sm text-zinc-500">Ações</div>
-            </div>
-
-            {/* Itens da tabela */}
-            
+            {groups.map((group) => (
+              <div key={group.id} className="border border-zinc-100 rounded-lg">
+                <div className="p-4">
+                  <div className="flex justify-between items-start mb-2">
+                    <h4 className="text-zinc-900 font-medium">{group.name}</h4>
+                    <button className="text-[#FF5900] hover:text-[#FF5900]/80">
+                      <span className="sr-only">Editar</span>
+                      +
+                    </button>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {group.additionals.slice(0, 4).map((additional) => (
+                      <span 
+                        key={additional.id}
+                        className="px-3 py-1 bg-emerald-50 text-emerald-500 text-sm rounded-full"
+                      >
+                        {additional.name}
+                      </span>
+                    ))}
+                    {group.additionals.length > 4 && (
+                      <span className="px-3 py-1 bg-emerald-50 text-emerald-500 text-sm rounded-full">
+                        +{group.additionals.length - 4}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

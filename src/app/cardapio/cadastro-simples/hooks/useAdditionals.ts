@@ -2,54 +2,61 @@ import { useState } from 'react';
 
 interface Additional {
   id: number;
-  image: string;
   name: string;
+  price: number;
   description: string;
-  price: string;
-  promoPrice: string;
-  isAvailable: boolean;
-  selected?: boolean;
+  imageUrl: string;
 }
 
 // Dados mockados para exemplo
 const mockAdditionals: Additional[] = [
   {
     id: 1,
-    image: '/images/additionals/maionese.png',
     name: 'Maionese',
+    price: 50.00,
     description: 'Maionese temperada da casa',
-    price: '50,00',
-    promoPrice: '50,00',
-    isAvailable: true,
-    selected: false
+    imageUrl: '/images/products/maionese.svg'
   },
   {
     id: 2,
-    image: '/images/additionals/maionese.png',
     name: 'Maionese',
+    price: 50.00,
     description: 'Maionese temperada da casa',
-    price: '50,00',
-    promoPrice: '50,00',
-    isAvailable: true,
-    selected: false
+    imageUrl: '/images/products/maionese.svg'
   },
-  // adiconar mais dados
+  {
+    id: 3,
+    name: 'Maionese',
+    price: 50.00,
+    description: 'Maionese temperada da casa',
+    imageUrl: '/images/products/maionese.svg'
+  },
+  {
+    id: 4,
+    name: 'Maionese',
+    price: 50.00,
+    description: 'Maionese temperada da casa',
+    imageUrl: '/images/products/maionese.svg'
+  },
+  {
+    id: 5,
+    name: 'Maionese',
+    price: 50.00,
+    description: 'Maionese caseira',
+    imageUrl: '/images/products/maionese.svg'
+  }
 ];
 
 export function useAdditionals() {
   const [additionals, setAdditionals] = useState<Additional[]>(mockAdditionals);
+  const [selectedAdditionals, setSelectedAdditionals] = useState<number[]>([]);
 
-  const toggleAvailability = (id: number) => {
-    setAdditionals(additionals.map(additional => {
-      if (additional.id === id) {
-        return { 
-          ...additional, 
-          isAvailable: !additional.isAvailable,
-          selected: !additional.selected
-        };
-      }
-      return additional;
-    }));
+  const toggleAdditionalSelection = (id: number) => {
+    setSelectedAdditionals(prev => 
+      prev.includes(id) 
+        ? prev.filter(additionalId => additionalId !== id)
+        : [...prev, id]
+    );
   };
 
   const searchAdditionals = (searchTerm: string) => {
@@ -66,7 +73,8 @@ export function useAdditionals() {
 
   return {
     additionals,
-    toggleAvailability,
+    selectedAdditionals,
+    toggleAdditionalSelection,
     searchAdditionals
   };
 }
