@@ -7,7 +7,8 @@ import { CategorySection } from './components/sections/CategorySection';
 import { ProductSection } from './components/sections/ProductSection';
 import { AdditionalsSection } from './components/sections/AdditionalsSection';
 import { CategoryModal } from './components/modals/CategoryModal';
-import { AdditionalsGroupModal } from './components/modals/AdditionalsGroupModal';
+import { AdditionalModalsContainer } from './components/AdditionalModalsContainer';
+import { AdditionalsProvider } from '@/contexts/AdditionalsContexts';
 
 export default function CadastroSimplesPage() {
   // Estados de navegação
@@ -43,61 +44,63 @@ export default function CadastroSimplesPage() {
   };
 
   return (
-    <div className="p-8">
-      <Header />
-      
-      <div className="max-w-[100%] ">
-        <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
-          <SimpleRegistrationCard />
-        </div>
-
-        <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
-          <CategorySection 
-            selectedCategories={selectedCategories}
-            onOpenModal={() => setIsCategoryModalOpen(true)}
-          />
-        </div>
-
-        {showProductSection && (
+    <AdditionalsProvider>
+      <div className="p-8">
+        <Header />
+        
+        <div className="max-w-[100%] ">
           <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
-            <ProductSection 
-              isEditing={isProductEditing}
-              onEdit={() => setIsProductEditing(true)}
+            <SimpleRegistrationCard />
+          </div>
+
+          <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
+            <CategorySection 
+              selectedCategories={selectedCategories}
+              onOpenModal={() => setIsCategoryModalOpen(true)}
             />
           </div>
-        )}
 
-        <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
-          <AdditionalsSection 
-            isVisible={showAdditionals}
-            onOpenAdditionalsModal={() => setIsAdditionalsModalOpen(true)}
+          {showProductSection && (
+            <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
+              <ProductSection 
+                isEditing={isProductEditing}
+                onEdit={() => setIsProductEditing(true)}
+              />
+            </div>
+          )}
+
+          <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
+            <AdditionalsSection 
+              isVisible={showAdditionals}
+              onOpenAdditionalsModal={() => setIsAdditionalsModalOpen(true)}
+            />
+          </div>
+
+          {/* Botão de Continuar/Finalizar */}
+          <div className="flex justify-end pt-4">
+            <button 
+              onClick={handleContinue}
+              className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
+            >
+              {showAdditionals ? 'Finalizar' : 'Continuar'}
+            </button>
+          </div>
+
+          {/* Modais */}
+          <CategoryModal 
+            isOpen={isCategoryModalOpen}
+            onClose={() => setIsCategoryModalOpen(false)}
+            selectedCategories={selectedCategories}
+            onCategoryChange={handleCategoryChange}
+          />
+
+          <AdditionalModalsContainer 
+            isOpen={isAdditionalsModalOpen} 
+            onClose={() => setIsAdditionalsModalOpen(false)} 
           />
         </div>
-
-        {/* Botão de Continuar/Finalizar */}
-        <div className="flex justify-end pt-4">
-          <button 
-            onClick={handleContinue}
-            className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
-          >
-            {showAdditionals ? 'Finalizar' : 'Continuar'}
-          </button>
-        </div>
-
-        {/* Modais */}
-        <CategoryModal 
-          isOpen={isCategoryModalOpen}
-          onClose={() => setIsCategoryModalOpen(false)}
-          selectedCategories={selectedCategories}
-          onCategoryChange={handleCategoryChange}
-        />
-
-        <AdditionalsGroupModal 
-          isOpen={isAdditionalsModalOpen}
-          onClose={() => setIsAdditionalsModalOpen(false)}
-        />
       </div>
-    </div>
+    </AdditionalsProvider>
   );
 }
 

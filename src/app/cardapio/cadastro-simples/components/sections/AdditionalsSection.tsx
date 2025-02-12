@@ -10,6 +10,7 @@ export function AdditionalsSection({ onOpenAdditionalsModal, isVisible }: Additi
   const { selectedAdditionals } = useAdditionals();
   
   if (!isVisible) return null;
+  
 
   return (
     <div className="bg-white p-6 rounded-2xl border border-zinc-200">
