@@ -1,5 +1,7 @@
 "use client"
 
+import { useOrders } from '@/hooks/userOrders';
+
 interface Order {
   id: string;
   customer: string;
@@ -13,48 +15,9 @@ interface Order {
 }
 
 export function RecentOrders() {
-  const orders: Order[] = [
-    {
-      id: '999',
-      customer: 'Allan Vieira',
-      items: [
-        { name: 'Cheese Burger', price: 50.00, quantity: 1 },
-        { name: 'Coca-cola 350ml', price: 8.00, quantity: 1 },
-      ],
-      status: 'pending',
-      time: 'há 15 min'
-    },
-    {
-      id: '999',
-      customer: 'Allan Vieira',
-      items: [
-        { name: 'Cheese Burger', price: 50.00, quantity: 1 },
-        { name: 'Coca-Cola 350ml', price: 8.00, quantity: 1 },
-      ],
-      status: 'accepted',
-      time: 'há 25 min'
-    },
-    {
-      id: '999',
-      customer: 'Allan Vieira',
-      items: [
-        { name: 'Cheese Burger', price: 50.00, quantity: 1 },
-        { name: 'Coca-Cola 350ml', price: 8.00, quantity: 1 },
-      ],
-      status: 'preparing',
-      time: 'há 25 min'
-    },
-    {
-      id: '999',
-      customer: 'Allan Vieira',
-      items: [
-        { name: 'Cheese Burger', price: 50.00, quantity: 1 },
-        { name: 'Coca-Cola 350ml', price: 8.00, quantity: 1 },
-      ],
-      status: 'delivered',
-      time: 'há 25 min'
-    }
-  ];
+  const { orders, isLoading, error } = useOrders();
+
+  console.log('Estado atual:', { orders, isLoading, error }); // Debug
 
   const getStatusInfo = (status: Order['status']) => {
     switch (status) {
@@ -103,54 +66,68 @@ export function RecentOrders() {
         <button className="text-[#FF3F00] text-sm font-medium">Ver mais</button>
       </div>
 
-      <div className="space-y-4 max-h-[calc(100vh-240px)] overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:none]">
-        {orders.map((order, index) => {
-          const statusInfo = getStatusInfo(order.status);
-          return (
-            <div 
-              key={index} 
-              className="bg-white rounded-2xl p-4 border border-zinc-200 shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <span className={`px-3 py-1 rounded-md text-sm font-medium ${statusInfo.badge}`}>
-                  {statusInfo.label}
-                </span>
-                <div className="flex items-center gap-2">
-                  <span className="text-zinc-300 text-lg">⎯</span>
-                  <span className="text-zinc-400">{order.id}</span>
-                  <span className="font-medium text-amber-400">{order.time}</span>
-                </div>
-              </div>
+      {isLoading && (
+        <div className="text-center py-4">
+          <p>Carregando pedidos...</p>
+        </div>
+      )}
 
-              <div className="space-y-2">
-                <h3 className="text-[#FF3F00] text-xl font-medium">{order.customer}</h3>
-                {order.items.map((item, itemIndex) => (
-                  <div key={itemIndex} className="flex justify-between">
-                    <span className="text-zinc-400">{item.name}</span>
-                    <span className="text-zinc-400">R$ {item.price.toFixed(2)}</span>
-                  </div>
-                ))}
-                <div className="text-zinc-400">+2 itens</div>
-                <div className="flex justify-between">
-                  <span className="text-zinc-400">Total</span>
-                  <span className="text-zinc-400">
-                    R$ {order.items.reduce((acc, item) => acc + (item.price * item.quantity), 0).toFixed(2)}
+      {error && (
+        <div className="text-center py-4 text-red-500">
+          <p>{error}</p>
+        </div>
+      )}
+
+      {!isLoading && !error && (
+        <div className="space-y-4 max-h-[calc(100vh-240px)] overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:none]">
+          {orders.map((order, index) => {
+            const statusInfo = getStatusInfo(order.status);
+            return (
+              <div 
+                key={index} 
+                className="bg-white rounded-2xl p-4 border border-zinc-200 shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <span className={`px-3 py-1 rounded-md text-sm font-medium ${statusInfo.badge}`}>
+                    {statusInfo.label}
                   </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-zinc-300 text-lg">⎯</span>
+                    <span className="text-zinc-400">{order.id}</span>
+                    <span className="font-medium text-amber-400">{order.time}</span>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-[#FF3F00] text-xl font-medium">{order.customer}</h3>
+                  {order.items.map((item, itemIndex) => (
+                    <div key={itemIndex} className="flex justify-between">
+                      <span className="text-zinc-400">{item.name}</span>
+                      <span className="text-zinc-400">R$ {item.price.toFixed(2)}</span>
+                    </div>
+                  ))}
+                  <div className="text-zinc-400">+2 itens</div>
+                  <div className="flex justify-between">
+                    <span className="text-zinc-400">Total</span>
+                    <span className="text-zinc-400">
+                      R$ {order.items.reduce((acc, item) => acc + (item.price * item.quantity), 0).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex gap-3 mt-4">
+                  <button className="flex-1 bg-[#FF3F00] text-white py-2 rounded-xl text-sm font-medium">
+                    Ver detalhes
+                  </button>
+                  <button className={`flex-1 ${statusInfo.button.color} py-2 rounded-xl text-sm font-medium`}>
+                    {statusInfo.button.text}
+                  </button>
                 </div>
               </div>
-
-              <div className="flex gap-3 mt-4">
-                <button className="flex-1 bg-[#FF3F00] text-white py-2 rounded-xl text-sm font-medium">
-                  Ver detalhes
-                </button>
-                <button className={`flex-1 ${statusInfo.button.color} py-2 rounded-xl text-sm font-medium`}>
-                  {statusInfo.button.text}
-                </button>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
