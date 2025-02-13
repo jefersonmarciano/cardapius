@@ -8,30 +8,19 @@ import { AdditionalGroupsListModal } from './modals/AdditionalGroupsListModal';
 interface AdditionalModalsContainerProps {
   isOpen: boolean;
   onClose: () => void;
+  isGroupsListOpen: boolean;
+  onCloseGroupsList: () => void;
+  onOpenGroupsList: () => void;
 }
 
 export function AdditionalModalsContainer({ 
   isOpen, 
-  onClose 
+  onClose,
+  isGroupsListOpen,
+  onCloseGroupsList,
+  onOpenGroupsList
 }: AdditionalModalsContainerProps) {
   const [isIncludeAdditionalsOpen, setIsIncludeAdditionalsOpen] = useState(false);
-  const [isGroupsListOpen, setIsGroupsListOpen] = useState(false);
-
-  const handleOpenIncludeAdditionals = () => {
-    setIsIncludeAdditionalsOpen(true);
-  };
-
-  const handleCloseIncludeAdditionals = () => {
-    setIsIncludeAdditionalsOpen(false);
-  };
-
-  const handleOpenGroupsList = () => {
-    setIsGroupsListOpen(true);
-  };
-
-  const handleCloseGroupsList = () => {
-    setIsGroupsListOpen(false);
-  };
 
   // Se o modal principal não estiver aberto, não renderiza nada
   if (!isOpen) return null;
@@ -41,18 +30,18 @@ export function AdditionalModalsContainer({
       <AdditionalsGroupModal 
         isOpen={isOpen}
         onClose={onClose}
-        onOpenIncludeAdditionals={handleOpenIncludeAdditionals}
-        onOpenGroupsList={handleOpenGroupsList}
+        onOpenIncludeAdditionals={() => setIsIncludeAdditionalsOpen(true)}
+        onOpenGroupsList={onOpenGroupsList}
       />
       
       <IncludeAdditionalsModal 
         isOpen={isIncludeAdditionalsOpen}
-        onBack={handleCloseIncludeAdditionals}
+        onBack={() => setIsIncludeAdditionalsOpen(false)}
       />
 
       <AdditionalGroupsListModal 
         isOpen={isGroupsListOpen}
-        onBack={handleCloseGroupsList}
+        onBack={onCloseGroupsList}
       />
     </>
   );

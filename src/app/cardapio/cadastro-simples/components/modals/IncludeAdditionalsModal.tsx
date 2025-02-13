@@ -1,8 +1,31 @@
 "use client"
 
-import { useState } from 'react';
+import { CaretLeft, MagnifyingGlass } from "@phosphor-icons/react";
+import { useState } from "react";
 import Image from 'next/image';
-import { useAdditionals } from '@/contexts/AdditionalsContexts';
+import { useAdditionals } from "@/contexts/AdditionalsContexts";
+import { Additional } from "@/types/additionals";
+
+const mockAdditionals: Additional[] = [
+  {
+    id: 1,
+    name: 'Bacon Extra',
+    description: 'Fatias de bacon crocante',
+    price: 5.90,
+    promoPrice: 4.90,
+    available: true,
+    image: '/images/icons/burgerplaceholder.svg'
+  },
+  {
+    id: 2,
+    name: 'Queijo Cheddar',
+    description: 'Fatia de queijo cheddar',
+    price: 3.90,
+    promoPrice: 4.90,
+    available: true,
+    image: '/images/icons/burgerplaceholder.svg'
+  },
+];
 
 interface IncludeAdditionalsModalProps {
   isOpen: boolean;
@@ -10,10 +33,28 @@ interface IncludeAdditionalsModalProps {
 }
 
 export function IncludeAdditionalsModal({ isOpen, onBack }: IncludeAdditionalsModalProps) {
-  const { additionals, selectedAdditionals, toggleAdditionalSelection } = useAdditionals();
+  const { selectedGroups, selectedAdditionals, addAdditional } = useAdditionals();
   const [searchTerm, setSearchTerm] = useState('');
+  const [additionalsState, setAdditionals] = useState<Additional[]>(mockAdditionals);
 
   if (!isOpen) return null;
+
+  const handleSearch = (term: string) => {
+    setSearchTerm(term);
+    if (!term) {
+      setAdditionals(mockAdditionals);
+      return;
+    }
+    const filtered = mockAdditionals.filter(additional => 
+      additional.name.toLowerCase().includes(term.toLowerCase())
+    );
+    setAdditionals(filtered);
+  };
+
+  const handleAddAdditional = (additional: Additional) => {
+    addAdditional(additional);
+    onBack();
+  };
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
@@ -33,7 +74,7 @@ export function IncludeAdditionalsModal({ isOpen, onBack }: IncludeAdditionalsMo
               type="text"
               placeholder="Buscar categoria"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => handleSearch(e.target.value)}
               className="w-full px-4 py-3 pl-10 border border-zinc-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#FF5900]"
             />
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400">
@@ -66,7 +107,7 @@ export function IncludeAdditionalsModal({ isOpen, onBack }: IncludeAdditionalsMo
           <div className="px-8 pt-4">
             {/* Table Content */}
             <div className="space-y-4">
-              {additionals.map((additional) => (
+              {additionalsState.map((additional) => (
                 <div
                   key={additional.id}
                   className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] items-center gap-4 px-4 py-2"
@@ -75,7 +116,7 @@ export function IncludeAdditionalsModal({ isOpen, onBack }: IncludeAdditionalsMo
                     <input
                       type="checkbox"
                       checked={selectedAdditionals.some(item => item.id === additional.id)}
-                      onChange={() => toggleAdditionalSelection(additional)}
+                      onChange={() => handleAddAdditional(additional)}
                       className="w-4 h-4 rounded border-zinc-300 text-[#FF5900] focus:ring-[#FF5900]"
                     />
                   </div>
@@ -94,16 +135,16 @@ export function IncludeAdditionalsModal({ isOpen, onBack }: IncludeAdditionalsMo
                     </div>
                   </div>
                   <div className="w-32 text-zinc-900">
-                    R$ {additional.price.toFixed(2).replace('.', ',')}
+                    {additional.price ? `R$ ${additional.price.toFixed(2).replace('.', ',')}` : '-'}
                   </div>
                   <div className="w-32 text-zinc-900">
-                    R$ {additional.promoPrice.toFixed(2).replace('.', ',')}
+                    {additional.promoPrice ? `R$ ${additional.promoPrice.toFixed(2).replace('.', ',')}` : '-'}
                   </div>
                   <div className="w-32">
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
-                        checked={additional.isAvailable}
+                        checked={additional.available}
                         readOnly
                         className="sr-only peer"
                       />
@@ -112,8 +153,8 @@ export function IncludeAdditionalsModal({ isOpen, onBack }: IncludeAdditionalsMo
                   </div>
                   <div className="w-20 flex justify-end">
                     <button
-                      onClick={() => toggleAdditionalSelection(additional)}
-                      className="w-8 h-8 flex items-center justify-center rounded-lg text-[#FF5900] hover:bg-[#FF5900]/10"
+                      onClick={() => handleAddAdditional(additional)}
+                      className="text-[#FF5900] hover:text-[#FF5900]/80 text-2xl"
                     >
                       +
                     </button>

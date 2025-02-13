@@ -19,6 +19,7 @@ export default function CadastroSimplesPage() {
   // Estados dos modais
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [isAdditionalsModalOpen, setIsAdditionalsModalOpen] = useState(false);
+  const [isGroupsListOpen, setIsGroupsListOpen] = useState(false);
 
   // Estados de dados
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -42,6 +43,9 @@ export default function CadastroSimplesPage() {
       setShowAdditionals(true);
     }
   };
+
+  const handleOpenGroupsList = () => setIsGroupsListOpen(true);
+  const handleCloseGroupsList = () => setIsGroupsListOpen(false);
 
   return (
     <AdditionalsProvider>
@@ -73,6 +77,7 @@ export default function CadastroSimplesPage() {
             <AdditionalsSection 
               isVisible={showAdditionals}
               onOpenAdditionalsModal={() => setIsAdditionalsModalOpen(true)}
+              onOpenGroupsList={handleOpenGroupsList}
             />
           </div>
 
@@ -95,8 +100,11 @@ export default function CadastroSimplesPage() {
           />
 
           <AdditionalModalsContainer 
-            isOpen={isAdditionalsModalOpen} 
-            onClose={() => setIsAdditionalsModalOpen(false)} 
+            isOpen={isAdditionalsModalOpen}
+            onClose={() => setIsAdditionalsModalOpen(false)}
+            isGroupsListOpen={isGroupsListOpen}
+            onCloseGroupsList={handleCloseGroupsList}
+            onOpenGroupsList={handleOpenGroupsList}
           />
         </div>
       </div>

@@ -1,140 +1,77 @@
 "use client"
 
-import { createContext, useContext, ReactNode, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
-// Interfaces
-interface Additional {
+
+// Interface unificada com todas as propriedades necessárias
+export interface Additional {
   id: number;
   name: string;
-  price: number;
-  promoPrice: number;
-  description: string;
-  image: string;
-  isAvailable: boolean;
-  isSelected?: boolean;
+  description?: string;
+  price?: number;
+  promoPrice?: number;
+  available?: boolean;
+  image?: string | any;
+}
+
+export interface AdditionalGroup {
+  id: number;
+  name: string;
+  additionals: Additional[];
+  additionalsCount: number;
+  min: number;
+  max: number;
 }
 
 interface AdditionalsContextType {
-  additionals: Additional[];
+  selectedGroups: AdditionalGroup[];
   selectedAdditionals: Additional[];
-  toggleAdditionalSelection: (additional: Additional) => void;
-  searchAdditionals: (term: string) => void;
+  addGroup: (group: AdditionalGroup) => void;
+  removeGroup: (groupId: number) => void;
+  addAdditional: (additional: Additional) => void;
+  removeAdditional: (additionalId: number) => void;
 }
 
-interface AdditionalsProviderProps {
-  children: ReactNode;
-}
+export const AdditionalsContext = createContext({} as AdditionalsContextType);
 
-// Dados mockados
-const mockAdditionals: Additional[] = [
-  {
-    id: 1,
-    name: 'Maionese',
-    price: 50.00,
-    promoPrice: 50.00,
-    description: 'Maionese temperada da casa',
-    image: '/images/products/maionese.svg',
-    isAvailable: true,
-    isSelected: false
-  },
-  {
-    id: 2,
-    name: 'Maionese Verde',
-    price: 50.00,
-    promoPrice: 50.00,
-    description: 'Maionese temperada da casa com ervas',
-    image: '/images/products/maionese.svg',
-    isAvailable: true,
-    isSelected: false
-  },
-  {
-    id: 3,
-    name: 'Maionese Defumada',
-    price: 50.00,
-    promoPrice: 50.00,
-    description: 'Maionese temperada da casa com defumados',
-    image: '/images/products/maionese.svg',
-    isAvailable: true,
-    isSelected: false
-  },
-  {
-    id: 4,
-    name: 'Ketchup',
-    price: 50.00,
-    promoPrice: 50.00,
-    description: 'Ketchup da casa',
-    image: '/images/products/maionese.svg',
-    isAvailable: true,
-    isSelected: false
-  },
-  {
-    id: 5,
-    name: 'Mostarda',
-    price: 50.00,
-    promoPrice: 50.00,
-    description: 'Mostarda da casa',
-    image: '/images/products/maionese.svg',
-    isAvailable: true,
-    isSelected: false
-  }
-];
-
-// Criação do contexto
-const AdditionalsContext = createContext<AdditionalsContextType | undefined>(undefined);
-
-// Provider
-export function AdditionalsProvider({ children }: AdditionalsProviderProps) {
-  const [additionals, setAdditionals] = useState<Additional[]>(mockAdditionals);
+export function AdditionalsProvider({ children }: { children: React.ReactNode }) {
+  const [selectedGroups, setSelectedGroups] = useState<AdditionalGroup[]>([]);
   const [selectedAdditionals, setSelectedAdditionals] = useState<Additional[]>([]);
 
-  const toggleAdditionalSelection = (additional: Additional) => {
-    setSelectedAdditionals(prev => {
-      const isCurrentlySelected = prev.some(item => item.id === additional.id);
-      
-      if (isCurrentlySelected) {
-        return prev.filter(item => item.id !== additional.id);
-      } else {
-        return [...prev, { ...additional, isSelected: true }];
-      }
+  const addGroup = (group: AdditionalGroup) => {
+    setSelectedGroups(prev => {
+      if (prev.some(g => g.id === group.id)) return prev;
+      return [...prev, group];
     });
   };
 
-  const searchAdditionals = (searchTerm: string) => {
-    if (!searchTerm) {
-      setAdditionals(mockAdditionals);
-      return;
-    }
+  const removeGroup = (groupId: number) => {
+    setSelectedGroups(prev => prev.filter(group => group.id !== groupId));
+  };
 
-    const filtered = mockAdditionals.filter(additional => 
-      additional.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setAdditionals(filtered);
+  const addAdditional = (additional: Additional) => {
+    setSelectedAdditionals(prev => {
+      if (prev.some(a => a.id === additional.id)) return prev;
+      return [...prev, additional];
+    });
+  };
+
+  const removeAdditional = (additionalId: number) => {
+    setSelectedAdditionals(prev => prev.filter(add => add.id !== additionalId));
   };
 
   return (
-    <AdditionalsContext.Provider 
-      value={{ 
-        additionals, 
-        selectedAdditionals, 
-        toggleAdditionalSelection, 
-        searchAdditionals 
-      }}
-    >
+    <AdditionalsContext.Provider value={{
+      selectedGroups,
+      selectedAdditionals,
+      addGroup,
+      removeGroup,
+      addAdditional,
+      removeAdditional,
+    }}>
       {children}
     </AdditionalsContext.Provider>
   );
 }
 
-// Hook personalizado
-export function useAdditionals() {
-  const context = useContext(AdditionalsContext);
-  
-  if (!context) {
-    throw new Error('useAdditionals must be used within an AdditionalsProvider');
-  }
-  
-  return context;
-}
-
-// Exportando a interface para uso em outros arquivos
-export type { Additional };
+export const useAdditionals = () => useContext(AdditionalsContext);

@@ -3,6 +3,26 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useAdditionals } from '@/contexts/AdditionalsContexts';
+import { CaretLeft, MagnifyingGlass } from "@phosphor-icons/react";
+
+interface Additional {
+  id: number;
+  name: string;
+  description?: string;
+  price?: number;
+  promoPrice?: number;
+  available?: boolean;
+  image?: string | any;
+}
+
+interface AdditionalGroup {
+  id: number;
+  name: string;
+  additionals: Additional[];
+  additionalsCount: number;
+  min: number;
+  max: number;
+}
 
 interface AdditionalsGroupModalProps {
   isOpen: boolean;
@@ -32,8 +52,8 @@ export function AdditionalsGroupModal({
           {/* Header atualizado */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
-              <button onClick={onClose} className="text-zinc-500 hover:text-zinc-600">
-                ←
+              <button onClick={onClose} className="text-zinc-400 hover:text-zinc-600">
+                <CaretLeft size={24} weight="bold" />
               </button>
               <h2 className="text-2xl font-medium text-zinc-900">Novo grupo de adicionais</h2>
             </div>
@@ -183,30 +203,32 @@ export function AdditionalsGroupModal({
                           />
                         </div>
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 relative rounded-lg overflow-hidden shrink-0">
-                            <Image
-                              src={additional.image}
-                              alt={additional.name}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
+                          {additional.image && (
+                            <div className="w-10 h-10 relative rounded-lg overflow-hidden shrink-0">
+                              <Image
+                                src={additional.image}
+                                alt={additional.name}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                          )}
                           <div>
                             <h4 className="text-[#FF5900] font-medium">{additional.name}</h4>
                             <p className="text-sm text-zinc-500">{additional.description}</p>
                           </div>
                         </div>
                         <div className="text-zinc-900">
-                          R$ {additional.price.toFixed(2).replace('.', ',')}
+                          R$ {additional.price?.toFixed(2).replace('.', ',') || 'Não disponível'}
                         </div>
                         <div className="text-zinc-900">
-                          R$ {additional.promoPrice.toFixed(2).replace('.', ',')}
+                          R$ {additional.promoPrice?.toFixed(2).replace('.', ',') || 'Não disponível'}
                         </div>
                         <div>
                           <label className="relative inline-flex items-center cursor-pointer">
                             <input
                               type="checkbox"
-                              checked={additional.isAvailable}
+                              checked={additional.available}
                               readOnly
                               className="sr-only peer"
                             />

@@ -3,6 +3,7 @@
 import { CaretLeft, MagnifyingGlass } from "@phosphor-icons/react";
 import { useState } from "react";
 import { useAdditionalGroups } from "../../hooks/useAdditionalGroups";
+import { useAdditionals } from "@/contexts/AdditionalsContexts";
 
 interface AdditionalGroupsListModalProps {
   isOpen: boolean;
@@ -12,63 +13,44 @@ interface AdditionalGroupsListModalProps {
 export function AdditionalGroupsListModal({ isOpen, onBack }: AdditionalGroupsListModalProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const { groups, searchGroups } = useAdditionalGroups();
+  const { addGroup } = useAdditionals();
 
   if (!isOpen) return null;
 
+  const handleAddGroup = (group: any) => { // Usando any temporariamente para manter compatibilidade
+    addGroup(group);
+    onBack();
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-      <div className="bg-white rounded-2xl w-full max-w-[800px] max-h-[90vh] flex flex-col">
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-zinc-100">
-          <div className="flex items-center gap-2">
-            <button onClick={onBack} className="text-zinc-500 hover:text-zinc-600">
-              <CaretLeft className="w-5 h-5" />
-            </button>
+      <div className="bg-white rounded-[32px] w-full max-w-[800px] flex flex-col">
+        <div className="p-8">
+          <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl font-medium text-zinc-900">Grupos de adicionais</h2>
           </div>
-          <button className="bg-[#FF5900] text-white px-4 py-2 rounded-lg flex items-center gap-1 text-sm font-medium">
-            <span>+</span>
-            Cadastrar novo grupo de adicional
-          </button>
-        </div>
 
-        {/* Content */}
-        <div className="p-6 flex-1 overflow-auto">
-          {/* Campo de busca */}
           <div className="relative mb-6">
-            <MagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 w-5 h-5" />
-            <input 
+            <MagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
+            <input
               type="text"
-              placeholder="Buscar grupo de adicionais"
+              placeholder="Buscar grupo..."
+              className="w-full pl-12 pr-4 py-3 rounded-lg border border-zinc-200"
               value={searchTerm}
-              onChange={(e) => {
+              onChange={e => {
                 setSearchTerm(e.target.value);
                 searchGroups(e.target.value);
               }}
-              className="w-full pl-12 pr-4 py-3 rounded-lg border border-zinc-200 outline-none"
             />
           </div>
 
-          {/* Cabeçalho da lista */}
-          <div className="flex justify-between mb-4 text-sm">
-            <span className="text-zinc-500">Informações</span>
-            <span className="text-zinc-500">Ações</span>
-          </div>
-
-          {/* Lista de Grupos */}
           <div className="space-y-4">
-            {groups.map((group) => (
-              <div key={group.id} className="border border-zinc-100 rounded-lg">
-                <div className="p-4">
-                  <div className="flex justify-between items-start mb-2">
-                    <h4 className="text-zinc-900 font-medium">{group.name}</h4>
-                    <button className="text-[#FF5900] hover:text-[#FF5900]/80">
-                      <span className="sr-only">Editar</span>
-                      +
-                    </button>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {group.additionals.slice(0, 4).map((additional) => (
+            {groups.map(group => (
+              <div key={group.id} className="flex items-center justify-between p-4 border border-zinc-100 rounded-lg">
+                <div>
+                  <h3 className="font-medium mb-2 text-zinc-900">{group.name}</h3>
+                  <div className="flex gap-2">
+                    {group.additionals.slice(0, 4).map(additional => (
                       <span 
                         key={additional.id}
                         className="px-3 py-1 bg-emerald-50 text-emerald-500 text-sm rounded-full"
@@ -83,19 +65,26 @@ export function AdditionalGroupsListModal({ isOpen, onBack }: AdditionalGroupsLi
                     )}
                   </div>
                 </div>
+                <button
+                  onClick={() => handleAddGroup(group)}
+                  className="text-[#FF5900] hover:text-[#FF5900]/80 text-2xl"
+                >
+                  +
+                </button>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="flex justify-end p-6 border-t border-zinc-100">
-          <button 
-            onClick={onBack}
-            className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
-          >
-            Continuar
-          </button>
+        <div className="border-t border-zinc-100 p-4">
+          <div className="flex justify-end">
+            <button
+              onClick={onBack}
+              className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
+            >
+              Continuar
+            </button>
+          </div>
         </div>
       </div>
     </div>
