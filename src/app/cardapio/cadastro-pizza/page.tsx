@@ -1,14 +1,26 @@
 "use client"
 
+import { useState } from 'react';
 import { CaretLeft } from "@phosphor-icons/react";
 import Link from "next/link";
 import { PizzaRegistrationCard } from "./components/PizzaRegistrationCard";
 import { PizzaCategorySection } from "./components/sections/PizzaCategorySection";
+import { SizeSection } from "./components/sections/SizeSection";
+import { EdgeSection } from "./components/sections/EdgeSection";
+import { FlavorSection } from "./components/sections/FlavorSection";
 
 export default function CadastroPizzaPage() {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [isConfirmed, setIsConfirmed] = useState(false);
+
   const handleAddCategory = () => {
     // Lógica para adicionar categoria
     console.log('Adicionar categoria');
+  };
+
+  const handleConfirm = () => {
+    setIsConfirmed(true);
+    setCurrentStep(prev => prev + 1);
   };
 
   return (
@@ -24,10 +36,14 @@ export default function CadastroPizzaPage() {
       <div className="max-w-[100%] space-y-4">
         <PizzaRegistrationCard />
         <PizzaCategorySection onAddCategory={handleAddCategory} />
+        {currentStep >= 2 && <SizeSection />}
+        {currentStep >= 3 && <EdgeSection />}
+        {currentStep >= 4 && <FlavorSection />}
 
         {/* Botão Continuar */}
         <div className="flex justify-end pt-4">
           <button 
+            onClick={handleConfirm}
             className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
           >
             Continuar
