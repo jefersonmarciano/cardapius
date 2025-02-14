@@ -56,6 +56,7 @@ export function AdditionalsGroupModal({
                 <CaretLeft size={24} weight="bold" />
               </button>
               <h2 className="text-2xl font-medium text-zinc-900">Novo grupo de adicionais</h2>
+              
             </div>
             <button 
               onClick={onOpenGroupsList}

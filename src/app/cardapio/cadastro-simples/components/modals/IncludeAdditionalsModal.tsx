@@ -56,6 +56,7 @@ export function IncludeAdditionalsModal({ isOpen, onBack }: IncludeAdditionalsMo
     onBack();
   };
 
+  
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
       <div className="bg-white rounded-[32px] w-full max-w-[800px] h-[85vh] flex flex-col">

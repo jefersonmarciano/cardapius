@@ -2,7 +2,7 @@
 
 import { CaretLeft, MagnifyingGlass } from "@phosphor-icons/react";
 import { useState } from "react";
-import { useAdditionalGroups } from "../../hooks/useAdditionalGroups";
+import { useAdditionalGroups } from "../../../../../hooks/useAdditionalGroups";
 import { useAdditionals } from "@/contexts/AdditionalsContexts";
 
 interface AdditionalGroupsListModalProps {
@@ -22,6 +22,7 @@ export function AdditionalGroupsListModal({ isOpen, onBack }: AdditionalGroupsLi
     onBack();
   };
 
+  
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
       <div className="bg-white rounded-[32px] w-full max-w-[800px] flex flex-col">
