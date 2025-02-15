@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { CaretLeft } from "@phosphor-icons/react";
+import { FlavorModalProps, Flavor } from '../../types';
+import { PIZZA_SIZES, AVAILABILITY_OPTIONS, ALLOWED_FILE_TYPES, MAX_FILE_SIZE, MIN_IMAGE_RESOLUTION } from '../../constants';
 
 interface FlavorSize {
   size: string;
@@ -10,21 +12,13 @@ interface FlavorSize {
   available: boolean;
 }
 
-interface Flavor {
-  id: string;
-  name: string;
-  description: string;
-  image: string;
-  sizes: FlavorSize[];
-}
-
 interface AddFlavorModalProps {
   isOpen: boolean;
   onClose: () => void;
   onAdd: (flavor: Flavor) => void;
 }
 
-export function AddFlavorModal({ isOpen, onClose, onAdd }: AddFlavorModalProps) {
+export function AddFlavorModal({ isOpen, onClose, onAdd }: FlavorModalProps) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('/burger-icon.svg');
@@ -146,7 +140,7 @@ export function AddFlavorModal({ isOpen, onClose, onAdd }: AddFlavorModalProps) 
                 <label className="block text-zinc-400 text-sm mb-2">Tamanho</label>
                 <input
                   type="text"
-                  value="Pizza pequena"
+                  value={PIZZA_SIZES[0].label}
                   disabled
                   className="w-full px-4 py-3 rounded-lg border border-zinc-200 bg-zinc-50 text-zinc-900"
                 />
@@ -178,8 +172,11 @@ export function AddFlavorModal({ isOpen, onClose, onAdd }: AddFlavorModalProps) 
                   onChange={(e) => setSmallAvailable(e.target.value)}
                   className="w-full px-4 py-3 rounded-lg border border-zinc-200 outline-none text-zinc-900 appearance-none bg-white"
                 >
-                  <option value="available">Disponível</option>
-                  <option value="unavailable">Indisponível</option>
+                  {AVAILABILITY_OPTIONS.map(option => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>

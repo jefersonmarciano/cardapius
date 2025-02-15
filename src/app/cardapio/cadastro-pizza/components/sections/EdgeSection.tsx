@@ -2,12 +2,7 @@
 
 import { useState } from 'react';
 import { Trash, PencilSimple } from "@phosphor-icons/react";
-
-interface Edge {
-  flavor: string;
-  price: string;
-  available: boolean;
-}
+import { Edge } from '../../types';
 
 export function EdgeSection() {
   const [isEditing, setIsEditing] = useState(true);

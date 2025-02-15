@@ -1,10 +1,5 @@
 import { useState } from 'react';
-
-interface Category {
-  id: number;
-  name: string;
-  parentId?: number;
-}
+import { Category } from '@/app/cardapio/cadastro-pizza/types';
 
 export function useCategories() {
   const [categories] = useState<Category[]>([

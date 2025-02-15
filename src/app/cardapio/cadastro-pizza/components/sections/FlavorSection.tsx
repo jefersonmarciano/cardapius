@@ -3,21 +3,7 @@
 import { useState } from 'react';
 import { PencilSimple, Trash, MagnifyingGlass } from "@phosphor-icons/react";
 import { AddFlavorModal } from '../modals/AddFlavorModal';
-
-interface FlavorSize {
-  size: string;
-  price: string;
-  promotionalPrice: string;
-  available: boolean;
-}
-
-interface Flavor {
-  id: string;
-  name: string;
-  description: string;
-  image: string;
-  sizes: FlavorSize[];
-}
+import { Flavor, FlavorSize } from '../../types';
 
 export function FlavorSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
