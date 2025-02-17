@@ -44,7 +44,7 @@ export function ProductSection({ onSave, editingProduct, onCancel }: ProductSect
               </label>
               <input
                 type="text"
-                className="w-full px-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 outline-none"
+                className="w-full px-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 outline-none text-zinc-900 placeholder:text-zinc-400"
                 placeholder="Mundial do Palmeiras"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -57,7 +57,7 @@ export function ProductSection({ onSave, editingProduct, onCancel }: ProductSect
               </label>
               <textarea
                 rows={3}
-                className="w-full px-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 outline-none resize-none"
+                className="w-full px-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 outline-none resize-none text-zinc-900 placeholder:text-zinc-400"
                 placeholder="Bebida comemorativa do título do Mundial de Clubes do Palmeiras"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -71,7 +71,7 @@ export function ProductSection({ onSave, editingProduct, onCancel }: ProductSect
                 </label>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 outline-none"
+                  className="w-full px-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 outline-none text-zinc-900 placeholder:text-zinc-400"
                   placeholder="1"
                 />
               </div>
@@ -82,7 +82,7 @@ export function ProductSection({ onSave, editingProduct, onCancel }: ProductSect
                 </label>
                 <div className="relative">
                   <select 
-                    className="w-full px-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 outline-none appearance-none"
+                    className="w-full px-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 outline-none appearance-none text-zinc-900"
                   >
                     <option>Litro(s)</option>
                   </select>
@@ -100,7 +100,7 @@ export function ProductSection({ onSave, editingProduct, onCancel }: ProductSect
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-700">R$</span>
                   <input
                     type="text"
-                    className="w-full pl-12 pr-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 outline-none"
+                    className="w-full pl-12 pr-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 outline-none text-zinc-900 placeholder:text-zinc-400"
                     placeholder="49,90"
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
@@ -116,7 +116,7 @@ export function ProductSection({ onSave, editingProduct, onCancel }: ProductSect
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-700">R$</span>
                   <input
                     type="text"
-                    className="w-full pl-12 pr-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 outline-none"
+                    className="w-full pl-12 pr-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 outline-none text-zinc-900 placeholder:text-zinc-400"
                     placeholder="39,90"
                     value={formData.promotionalPrice}
                     onChange={(e) => setFormData({ ...formData, promotionalPrice: e.target.value })}
@@ -156,7 +156,7 @@ export function ProductSection({ onSave, editingProduct, onCancel }: ProductSect
               </label>
               <div className="relative max-w-[200px]">
                 <select 
-                  className="w-full px-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 outline-none appearance-none"
+                  className="w-full px-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 outline-none appearance-none text-zinc-900"
                 >
                   <option>Disponível</option>
                   <option>Indisponivel</option>

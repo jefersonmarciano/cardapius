@@ -5,14 +5,12 @@ import Image from 'next/image';
 import { ProductSection } from "./components/sections/ProductSection";
 import { ProductList } from "./components/sections/ProductList";
 import { CategorySection } from "./components/sections/CategorySection";
-import { CategoryModal } from "./components/modal/CategoryModal";
 import { Product } from './types';
 
 export default function CadastroBebidaPage() {
   const [showProductSection, setShowProductSection] = useState(true);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSave = (product: Product) => {
     if (editingProduct) {
@@ -27,8 +25,6 @@ export default function CadastroBebidaPage() {
   const handleDelete = (id: string) => {
     const updatedProducts = products.filter(p => p.id !== id);
     setProducts(updatedProducts);
-    
-    // Se não houver mais produtos, mostra o ProductSection
     if (updatedProducts.length === 0) {
       setShowProductSection(true);
     }
@@ -62,24 +58,7 @@ export default function CadastroBebidaPage() {
           </div>
         </div>
 
-        {/* Category Section */}
-        <div className="bg-white p-6 rounded-2xl border border-zinc-200">
-          <div>
-            <h3 className="text-zinc-900 font-medium mb-2">Categorias</h3>
-            <p className="text-zinc-500 text-sm">
-              As categorias ajudam seus clientes a encontrarem os produtos mais rápido.
-            </p>
-          </div>
-
-          <button 
-            onClick={() => setIsModalOpen(true)}
-            className="mt-4 flex items-center gap-2 text-[#FF5900] hover:text-[#FF5900]/90"
-          >
-            <span className="text-lg">+</span>
-            <span className="text-sm">Adicionar categoria(s)</span>
-          </button>
-        </div>
-
+        <CategorySection />
         {showProductSection && (
           <ProductSection 
             onSave={handleSave}
@@ -110,11 +89,6 @@ export default function CadastroBebidaPage() {
           </button>
         </div>
       </div>
-
-      <CategoryModal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </div>
   );
 }
