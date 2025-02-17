@@ -37,23 +37,31 @@ export default function CardapioPage() {
         </Link>
 
         {/* Cadastro de bebidas */}
-        <div className="bg-white p-6 rounded-2xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 hover:border-[#FF5900] group">
-          <div className="flex gap-4">
-            <div className="w-16 h-16 relative">
-              <Image 
-                src="/images/icons/bebidas.png"
-                alt="Drinks" 
-                width={64}
-                height={64}
-                className="object-contain grayscale group-hover:grayscale-0 transition-all duration-200"
-              />
-            </div>
-            <div>
-              <h2 className="text-lg font-medium text-zinc-400 group-hover:text-zinc-900">Cadastro de bebidas</h2>
-              <p className="text-zinc-400 group-hover:text-zinc-500">Inclua em seu cardápio sucos, refrigerantes, cervejas, etc.</p>
+        <Link href="/cardapio/cadastro-bebidas" className="block">
+          <div className="bg-white p-6 rounded-2xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 hover:border-[#FF5900] group">
+            <div className="flex gap-4">
+              <div className="w-16 h-16 relative">
+                <div 
+                  className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  style={{
+                    background: 'radial-gradient(circle, rgba(255,89,0,0.15) 0%, rgba(255,89,0,0.1) 40%, rgba(255,89,0,0) 70%)'
+                  }}
+                />
+                <Image 
+                  src="/images/icons/bebidas.png"
+                  alt="Drinks" 
+                  width={64}
+                  height={64}
+                  className="object-contain relative z-10 grayscale group-hover:grayscale-0 transition-all duration-200"
+                />
+              </div>
+              <div>
+                <h2 className="text-lg font-medium text-zinc-400 group-hover:text-zinc-900">Cadastro de bebidas</h2>
+                <p className="text-zinc-400 group-hover:text-zinc-500">Inclua em seu cardápio sucos, refrigerantes, cervejas, etc.</p>
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
 
         {/* Cadastro de pizza */}
         <Link href="/cardapio/cadastro-pizza" className="block">

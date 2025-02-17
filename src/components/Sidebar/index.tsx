@@ -64,6 +64,11 @@ export function Sidebar() {
           href: "/cardapio/adicionais",
           onClick: () => router.push("/cardapio/adicionais"),
         },
+        {
+          label: "Grupo de adicionais",
+          href: "/cardapio/grupo-adicionais",
+          onClick: () => router.push("/cardapio/grupo-adicionais"),
+        },
       ],
     },
     {

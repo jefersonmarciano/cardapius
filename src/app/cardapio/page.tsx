@@ -33,6 +33,7 @@ export default function CardapioPage() {
     { id: 'produtos', label: 'Produtos' },
     { id: 'categorias', label: 'Categorias' },
     { id: 'adicionais', label: 'Adicionais' },
+    { id: 'grupo-adicionais', label: 'Grupo de adicionais' },
     { id: 'excluir', label: 'Excluir', className: 'text-red-600' }
   ];
 
