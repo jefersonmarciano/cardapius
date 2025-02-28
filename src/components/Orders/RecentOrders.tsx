@@ -1,6 +1,7 @@
 "use client"
 
 import { useOrders } from '@/hooks/userOrders';
+import { Button } from '@/components/Button';
 
 interface Order {
   id: string;
@@ -25,19 +26,19 @@ export function RecentOrders() {
         return {
           label: 'Em aberto',
           badge: 'bg-amber-400 text-black rounded-r-md rounded-l-none -ml-4',
-          button: { text: 'Aceitar pedido', color: 'bg-emerald-500' }
+          button: { text: 'Aceitar pedido', color: 'bg-[#2CAFA0]' }
         };
       case 'accepted':
         return {
           label: 'Em preparo',
           badge: 'bg-orange-400/20 text-orange-600 rounded-r-md rounded-l-none -ml-4',
-          button: { text: 'Pedido pronto', color: 'bg-emerald-500' }
+          button: { text: 'Pedido pronto', color: 'bg-[#2CAFA0]' }
         };
       case 'preparing':
         return {
           label: 'Aguardando envio',
           badge: 'bg-blue-400/20 text-blue-600 rounded-r-md rounded-l-none -ml-4',
-          button: { text: 'Enviar pedido', color: 'bg-emerald-500' }
+          button: { text: 'Enviar pedido', color: 'bg-[#2CAFA0]' }
         };
       case 'delivered':
         return {
@@ -116,12 +117,15 @@ export function RecentOrders() {
                 </div>
 
                 <div className="flex gap-3 mt-4">
-                  <button className="flex-1 bg-[#FF3F00] text-white py-2 rounded-xl text-sm font-medium">
+                  <Button fullWidth>
                     Ver detalhes
-                  </button>
-                  <button className={`flex-1 ${statusInfo.button.color} py-2 rounded-xl text-sm font-medium`}>
+                  </Button>
+                  <Button 
+                    fullWidth 
+                    className={`!bg-[#2CAFA0] ${order.status === 'delivered' ? '!bg-zinc-200 !text-zinc-500' : ''}`}
+                  >
                     {statusInfo.button.text}
-                  </button>
+                  </Button>
                 </div>
               </div>
             );

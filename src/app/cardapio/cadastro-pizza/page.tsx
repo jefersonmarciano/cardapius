@@ -8,6 +8,7 @@ import { PizzaCategorySection } from "./components/sections/PizzaCategorySection
 import { SizeSection } from "./components/sections/SizeSection";
 import { EdgeSection } from "./components/sections/EdgeSection";
 import { FlavorSection } from "./components/sections/FlavorSection";
+import { Button } from "@/components/Button";
 
 export default function CadastroPizzaPage() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -42,12 +43,9 @@ export default function CadastroPizzaPage() {
 
         {/* Botão Continuar */}
         <div className="flex justify-end pt-4">
-          <button 
-            onClick={handleConfirm}
-            className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
-          >
+          <Button onClick={handleConfirm}>
             Continuar
-          </button>
+          </Button>
         </div>
       </div>
     </div>

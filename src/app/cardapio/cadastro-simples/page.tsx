@@ -9,12 +9,16 @@ import { AdditionalsSection } from './components/sections/AdditionalsSection';
 import { CategoryModal } from './components/modals/CategoryModal';
 import { AdditionalModalsContainer } from './components/AdditionalModalsContainer';
 import { AdditionalsProvider } from '@/contexts/AdditionalsContexts';
+import { Button } from '@/components/Button';
+import { OffersSection } from './components/sections/OffersSection';
 
 export default function CadastroSimplesPage() {
   // Estados de navegação
   const [showProductSection, setShowProductSection] = useState(false);
   const [isProductEditing, setIsProductEditing] = useState(true);
   const [showAdditionals, setShowAdditionals] = useState(false);
+  const [showOffers, setShowOffers] = useState(false);
+  const [isOffersModalOpen, setIsOffersModalOpen] = useState(false);
 
   // Estados dos modais
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
@@ -41,6 +45,8 @@ export default function CadastroSimplesPage() {
     } else if (isProductEditing) {
       setIsProductEditing(false);
       setShowAdditionals(true);
+    } else if (showAdditionals && !showOffers) {
+      setShowOffers(true);
     }
   };
 
@@ -52,8 +58,8 @@ export default function CadastroSimplesPage() {
       <div className="p-8">
         <Header />
         
-        <div className="max-w-[100%] ">
-          <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
+        <div className="max-w-[100%] space-y-2">
+          <div className="bg-white rounded-2xl border border-zinc-100">
             <SimpleRegistrationCard />
           </div>
 
@@ -81,14 +87,19 @@ export default function CadastroSimplesPage() {
             />
           </div>
 
+          {showOffers && (
+            <div className="bg-white rounded-2xl border border-zinc-100">
+              <OffersSection 
+                onOpenOffersModal={() => setIsOffersModalOpen(true)}
+              />
+            </div>
+          )}
+
           {/* Botão de Continuar/Finalizar */}
           <div className="flex justify-end pt-4">
-            <button 
-              onClick={handleContinue}
-              className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
-            >
-              {showAdditionals ? 'Finalizar' : 'Continuar'}
-            </button>
+            <Button onClick={handleContinue}>
+              {showOffers ? 'Finalizar' : 'Continuar'}
+            </Button>
           </div>
 
           {/* Modais */}

@@ -4,6 +4,7 @@ import { CaretLeft, MagnifyingGlass } from "@phosphor-icons/react";
 import { useState } from "react";
 import { useAdditionalGroups } from "../../hooks/useAdditionalGroups";
 import { useAdditionals } from "@/contexts/AdditionalsContexts";
+import { Button } from '@/components/Button';
 
 interface AdditionalGroupsListModalProps {
   isOpen: boolean;
@@ -78,12 +79,9 @@ export function AdditionalGroupsListModal({ isOpen, onBack }: AdditionalGroupsLi
 
         <div className="border-t border-zinc-100 p-4">
           <div className="flex justify-end">
-            <button
-              onClick={onBack}
-              className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
-            >
+            <Button onClick={onBack}>
               Continuar
-            </button>
+            </Button>
           </div>
         </div>
       </div>

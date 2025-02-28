@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Money, Users, ArrowsClockwise, LockKey } from "@phosphor-icons/react";
 import { MostOrderedProducts } from "@/components/Product/MostOrderedProducts";
 import { LastOrderedProducts } from "@/components/Product/LastOrderedProducts";
 
@@ -13,7 +12,7 @@ export default function Home() {
       value: "R$1.5k",
       change: "-10.80%",
       isNegative: true,
-      icon: Money,
+      iconPath: "/images/icons/cash.svg",
       color: "#FF3F00",
     },
     {
@@ -21,7 +20,7 @@ export default function Home() {
       value: "44",
       change: "+10.80%",
       isNegative: false,
-      icon: Users,
+      iconPath: "/images/icons/client.svg",
       color: "#FF3F00",
     },
     {
@@ -29,7 +28,7 @@ export default function Home() {
       value: "11%",
       change: "+10.80%",
       isNegative: false,
-      icon: ArrowsClockwise,
+      iconPath: "/images/icons/recorrencia.svg",
       color: "#FF3F00",
     },
     {
@@ -37,7 +36,7 @@ export default function Home() {
       value: "20",
       change: "-10.80%",
       isNegative: true,
-      icon: LockKey,
+      iconPath: "/images/icons/desistencia.svg",
       color: "#FF3F00",
     },
   ];
@@ -102,7 +101,6 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {stats.map((stat) => {
-              const Icon = stat.icon;
               return (
                 <div
                   key={stat.label}
@@ -112,11 +110,13 @@ export default function Home() {
                     {stat.label}
                   </div>
                   <div className="flex items-center gap-3 mb-2 flex-wrap">
-                    <div className="p-3 rounded-full bg-[#FF3F00]/10 shrink-0">
-                      <Icon
-                        size={24}
+                    <div className="shrink-0">
+                      <Image
+                        src={stat.iconPath}
+                        alt={stat.label}
+                        width={32}
+                        height={32}
                         className="text-[#FF3F00]"
-                        weight="bold"
                       />
                     </div>
                     <span className="text-[24px] lg:text-[30px] font-bold text-[#FF5900] break-words">

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Plus } from '@phosphor-icons/react';
 import { CategoryModal } from '../modal/CategoryModal';
+import { EditButton } from '@/components/EditButton';
 
 interface Category {
   id: string;
@@ -27,12 +28,7 @@ export function CategorySection() {
             </div>
 
             {selectedCategories.length > 0 && (
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="text-[#FF5900] text-sm px-4 py-2 rounded-lg border border-[#FF5900]"
-              >
-                Alterar
-              </button>
+              <EditButton onClick={() => setIsModalOpen(true)} />
             )}
           </div>
 

@@ -3,6 +3,7 @@
 import { CaretLeft } from "@phosphor-icons/react";
 import Link from "next/link";
 import Image from 'next/image';
+import { Button } from "@/components/Button";
 
 export default function CardapioPage() {
   return (
@@ -91,11 +92,9 @@ export default function CardapioPage() {
         </Link>
 
         <div className="flex justify-end pt-4">
-          <button 
-            className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90 transition-colors"
-          >
+          <Button>
             Continuar
-          </button>
+          </Button>
         </div>
       </div>
     </div>

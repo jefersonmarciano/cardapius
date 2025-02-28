@@ -13,15 +13,15 @@ export function CategoryModal({ isOpen, onClose, selectedCategories, onCategoryC
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white rounded-2xl w-full max-w-[600px]">
-        {/* Header */}
-        <div className="flex items-center gap-2 p-4 border-b border-zinc-100">
+        {/* Header atualizado */}
+        <div className="flex items-center gap-3 p-4 border-b border-zinc-100">
           <button 
             onClick={onClose}
-            className="text-zinc-500 hover:text-zinc-600"
+            className="text-zinc-400 hover:text-zinc-600"
           >
-            <CaretLeft className="w-5 h-5" />
+            <CaretLeft size={24} weight="bold" />
           </button>
-          <span className="text-zinc-900">Adicionar categoria(s)</span>
+          <h2 className="text-2xl font-medium text-zinc-900">Adicionar categoria(s)</h2>
         </div>
 
         <div className="p-4">

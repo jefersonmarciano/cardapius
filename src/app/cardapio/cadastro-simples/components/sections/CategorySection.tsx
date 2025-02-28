@@ -1,3 +1,5 @@
+import { EditButton } from '@/components/EditButton';
+
 interface CategorySectionProps {
   selectedCategories: string[];
   onOpenModal: () => void;
@@ -11,12 +13,7 @@ export function CategorySection({ selectedCategories, onOpenModal }: CategorySec
           <h3 className="text-zinc-900 font-medium mb-2">Categorias</h3>
           <p className="text-zinc-500 text-sm">As categorias ajudam seus clientes a encontrarem os produtos mais rápido.</p>
         </div>
-        <button 
-          onClick={onOpenModal}
-          className="text-[#FF3F00] text-sm font-medium"
-        >
-          Alterar
-        </button>
+        <EditButton onClick={onOpenModal} />
       </div>
 
       {selectedCategories.length > 0 && (

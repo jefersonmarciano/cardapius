@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useAdditionals } from '@/contexts/AdditionalsContexts';
 import { CaretLeft, MagnifyingGlass } from "@phosphor-icons/react";
+import { Button } from '@/components/Button';
 
 interface Additional {
   id: number;
@@ -255,12 +256,9 @@ export function AdditionalsGroupModal({
         {/* Footer */}
         <div className="border-t border-zinc-100 p-4">
           <div className="flex justify-end">
-            <button
-              onClick={onClose}
-              className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
-            >
+            <Button onClick={onClose}>
               Finalizar
-            </button>
+            </Button>
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useCardapio } from "./hooks/useCardapio";
 import Link from "next/link";
 import { useState } from "react";
+import { Button } from '@/components/Button';
 
 export default function CardapioPage() {
   const { 
@@ -44,12 +45,9 @@ export default function CardapioPage() {
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-2xl font-medium text-zinc-900">Cardápio</h1>
-            <Link 
-              href="/cardapio/produtos" 
-              className="flex items-center gap-2 bg-[#FF5900] text-white px-4 py-2 rounded-full whitespace-nowrap"
-            >
+            <Button href="/cardapio/produtos">
               Cadastrar produto
-            </Link>
+            </Button>
           </div>
 
           {/* Filters */}
@@ -140,18 +138,30 @@ export default function CardapioPage() {
                       <td className="px-6 py-4 text-center text-zinc-500">{product.category}</td>
                       <td className="px-6 py-4">
                         <div className="flex items-center justify-center gap-2">
-                          <button className="w-8 h-8 flex items-center justify-center text-emerald-500 hover:bg-emerald-50 rounded-lg">
+                          <Button 
+                            variant="secondary"
+                            className="!p-2 !min-w-0 text-emerald-500 hover:bg-emerald-50"
+                          >
                             <WhatsappLogo className="w-5 h-5" />
-                          </button>
-                          <button className="w-8 h-8 flex items-center justify-center text-blue-500 hover:bg-blue-50 rounded-lg">
+                          </Button>
+                          <Button 
+                            variant="secondary"
+                            className="!p-2 !min-w-0 text-blue-500 hover:bg-blue-50"
+                          >
                             <ShareNetwork className="w-5 h-5" />
-                          </button>
-                          <button className="w-8 h-8 flex items-center justify-center text-[#FF5900] hover:bg-[#FFF1EC] rounded-lg">
+                          </Button>
+                          <Button 
+                            variant="secondary"
+                            className="!p-2 !min-w-0 text-[#FF5900] hover:bg-[#FFF1EC]"
+                          >
                             <PencilSimple className="w-5 h-5" />
-                          </button>
-                          <button className="w-8 h-8 flex items-center justify-center text-red-500 hover:bg-red-50 rounded-lg">
+                          </Button>
+                          <Button 
+                            variant="secondary"
+                            className="!p-2 !min-w-0 text-red-500 hover:bg-red-50"
+                          >
                             <Trash className="w-5 h-5" />
-                          </button>
+                          </Button>
                         </div>
                       </td>
                     </tr>
@@ -159,6 +169,35 @@ export default function CardapioPage() {
                 </tbody>
               </table>
             </div>
+          </div>
+
+          {/* Paginação */}
+          <div className="flex justify-center gap-2 mt-8">
+            <Button 
+              variant="secondary"
+              className="!p-2 !min-w-0 text-zinc-400"
+            >
+              &lt;
+            </Button>
+            {[1, 2, 3].map((page) => (
+              <Button
+                key={page}
+                variant={page === 1 ? 'primary' : 'secondary'}
+                className={`!p-2 !min-w-0 ${
+                  page === 1 
+                    ? 'bg-[#FF5900] text-white' 
+                    : 'text-zinc-400'
+                }`}
+              >
+                {page}
+              </Button>
+            ))}
+            <Button 
+              variant="secondary"
+              className="!p-2 !min-w-0 text-zinc-400"
+            >
+              &gt;
+            </Button>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import { MagnifyingGlass } from "@phosphor-icons/react";
 import { useState } from "react";
+import { Button } from "@/components/Button";
 
 interface OrderItem {
   name: string;
@@ -37,9 +38,9 @@ export function OrdersPage() {
     <div className="p-8 max-h-screen overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:none]">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-medium text-zinc-900">Pedidos</h1>
-        <button className="bg-[#FF5900] text-white px-4 py-2 rounded-lg text-sm font-medium">
+        <Button>
           + Pedido manual
-        </button>
+        </Button>
       </div>
 
       <div className="relative mb-6">
@@ -97,12 +98,12 @@ export function OrdersPage() {
             </div>
 
             <div className="flex gap-2 mt-4">
-              <button className="flex-1 bg-[#FF5900] text-white py-2 rounded-lg text-sm font-medium">
+              <Button fullWidth>
                 Ver detalhes
-              </button>
-              <button className="flex-1 bg-emerald-500 text-white py-2 rounded-lg text-sm font-medium">
+              </Button>
+              <Button fullWidth className="!bg-emerald-500">
                 Aceitar pedido
-              </button>
+              </Button>
             </div>
           </div>
         ))}
