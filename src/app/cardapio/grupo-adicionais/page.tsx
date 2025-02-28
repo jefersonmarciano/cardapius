@@ -27,6 +27,7 @@ export default function GrupoAdicionaisPage() {
             size={20} 
             className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
           />
+          
           <input
             type="text"
             placeholder="Buscar grupo de adicionais"
