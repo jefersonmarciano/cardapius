@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 
 interface Order {
-  id: string;
+  id: {
+    number: string;
+    time: string;  // Tempo relativo (ex: "há 15 min")
+  };
   customer: string;
   items: {
     name: string;
@@ -9,7 +12,6 @@ interface Order {
     quantity: number;
   }[];
   status: 'pending' | 'accepted' | 'preparing' | 'delivered';
-  time: string;
 }
 
 export function useOrders() {
@@ -20,51 +22,57 @@ export function useOrders() {
   useEffect(() => {
     async function fetchOrders() {
       try {
-        // Dados mockados para teste
         const mockOrders: Order[] = [
           {
-            id: '#12345',
+            id: {
+              number: '999',
+              time: 'há 15 min'
+            },
             customer: 'João Silva',
             items: [
               { name: 'Pizza Grande', price: 45.90, quantity: 1 },
               { name: 'Refrigerante 2L', price: 12.00, quantity: 1 }
             ],
-            status: 'pending', // Em aberto
-            time: '15:30'
+            status: 'pending'
           },
           {
-            id: '#12346',
+            id: {
+              number: '998',
+              time: 'há 20 min'
+            },
             customer: 'Maria Santos',
             items: [
               { name: 'Hambúrguer', price: 25.90, quantity: 2 },
               { name: 'Batata Frita', price: 15.00, quantity: 1 }
             ],
-            status: 'accepted', // Em preparo
-            time: '15:45'
+            status: 'accepted'
           },
           {
-            id: '#12347',
+            id: {
+              number: '997',
+              time: 'há 25 min'
+            },
             customer: 'Pedro Oliveira',
             items: [
               { name: 'Hot Dog Especial', price: 18.90, quantity: 2 },
               { name: 'Milk Shake', price: 14.90, quantity: 1 }
             ],
-            status: 'preparing', // Aguardando envio
-            time: '16:00'
+            status: 'preparing'
           },
           {
-            id: '#12348',
+            id: {
+              number: '996',
+              time: 'há 30 min'
+            },
             customer: 'Ana Costa',
             items: [
               { name: 'Açaí 500ml', price: 22.90, quantity: 1 },
               { name: 'Pastel', price: 8.90, quantity: 3 }
             ],
-            status: 'delivered', // Pedido enviado
-            time: '16:15'
+            status: 'delivered'
           }
         ];
 
-        // Simula um delay de rede
         await new Promise(resolve => setTimeout(resolve, 1000));
         setOrders(mockOrders);
       } catch (err) {

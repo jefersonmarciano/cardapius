@@ -137,31 +137,19 @@ export default function CardapioPage() {
                       </td>
                       <td className="px-6 py-4 text-center text-zinc-500">{product.category}</td>
                       <td className="px-6 py-4">
-                        <div className="flex items-center justify-center gap-2">
-                          <Button 
-                            variant="secondary"
-                            className="!p-2 !min-w-0 text-emerald-500 hover:bg-emerald-50"
-                          >
-                            <WhatsappLogo className="w-5 h-5" />
-                          </Button>
-                          <Button 
-                            variant="secondary"
-                            className="!p-2 !min-w-0 text-blue-500 hover:bg-blue-50"
-                          >
-                            <ShareNetwork className="w-5 h-5" />
-                          </Button>
-                          <Button 
-                            variant="secondary"
-                            className="!p-2 !min-w-0 text-[#FF5900] hover:bg-[#FFF1EC]"
-                          >
-                            <PencilSimple className="w-5 h-5" />
-                          </Button>
-                          <Button 
-                            variant="secondary"
-                            className="!p-2 !min-w-0 text-red-500 hover:bg-red-50"
-                          >
-                            <Trash className="w-5 h-5" />
-                          </Button>
+                        <div className="flex items-center gap-4">
+                          <button className="text-[#25D366] hover:opacity-80">
+                            <WhatsappLogo size={24} weight="regular" />
+                          </button>
+                          <button className="text-[#FF5900] hover:opacity-80">
+                            <ShareNetwork size={24} weight="fill" />
+                          </button>
+                          <button className="text-[#FFB800] hover:opacity-80">
+                            <PencilSimple size={24} weight="fill" />
+                          </button>
+                          <button className="text-[#FF3838] hover:opacity-80">
+                            <Trash size={24} weight="fill" />
+                          </button>
                         </div>
                       </td>
                     </tr>

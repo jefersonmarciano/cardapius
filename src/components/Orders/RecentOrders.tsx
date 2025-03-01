@@ -2,6 +2,7 @@
 
 import { useOrders } from '@/hooks/userOrders';
 import { Button } from '@/components/Button';
+import { FileText } from "@phosphor-icons/react";
 
 interface Order {
   id: string;
@@ -88,27 +89,41 @@ export function RecentOrders() {
                 key={index} 
                 className="bg-white rounded-2xl p-4 border border-zinc-200 shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
               >
+                
                 <div className="flex items-center justify-between mb-4">
                   <span className={`px-3 py-1 rounded-md text-sm font-medium ${statusInfo.badge}`}>
                     {statusInfo.label}
                   </span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-zinc-300 text-lg">⎯</span>
-                    <span className="text-zinc-400">{order.id}</span>
-                    <span className="font-medium text-amber-400">{order.time}</span>
+                  <div className="flex flex-col items-end">
+                    <div className="flex items-center gap-2">
+                      <FileText size={24} className="text-zinc-500" />
+                      <span className="text-zinc-500 text-2xl">{order.id.number}</span>
+                    </div>
+                    
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <h3 className="text-[#FF3F00] text-xl font-medium">{order.customer}</h3>
-                  {order.items.map((item, itemIndex) => (
-                    <div key={itemIndex} className="flex justify-between">
-                      <span className="text-zinc-400">{item.name}</span>
-                      <span className="text-zinc-400">R$ {item.price.toFixed(2)}</span>
-                    </div>
-                  ))}
-                  <div className="text-zinc-400">+2 itens</div>
-                  <div className="flex justify-between">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-[#FF3F00] text-xl font-medium">
+                      {order.customer}
+                    </h3>
+                    <span className="text-[#FFB800] text-lg">
+                      {order.id.time}.
+                    </span>
+                  </div>
+
+                  <div className="">
+                    {order.items.map((item, itemIndex) => (
+                      <div key={itemIndex} className="flex justify-between">
+                        <span className="text-zinc-400">{item.name}</span>
+                        <span className="text-zinc-400">R$ {item.price.toFixed(2)}</span>
+                      </div>
+                    ))}
+                    <div className="text-zinc-400">+2 itens</div>
+                  </div>
+
+                  <div className="flex justify-between pt-2">
                     <span className="text-zinc-400">Total</span>
                     <span className="text-zinc-400">
                       R$ {order.items.reduce((acc, item) => acc + (item.price * item.quantity), 0).toFixed(2)}
