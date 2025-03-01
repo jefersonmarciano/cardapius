@@ -106,7 +106,7 @@ export default function Home() {
                   key={stat.label}
                   className="bg-white rounded-2xl p-6 shadow-sm w-full"
                 >
-                  <div className="text-[14px] text-zinc-400 mb-4">
+                  <div className="text-[14px] text-zinc-400 mb-4 text-center">
                     {stat.label}
                   </div>
                   <div className="flex items-center gap-3 mb-2 flex-wrap">
@@ -116,10 +116,10 @@ export default function Home() {
                         alt={stat.label}
                         width={32}
                         height={32}
-                        className="text-[#FF3F00]"
+                        className="text-primary"
                       />
                     </div>
-                    <span className="text-[24px] lg:text-[30px] font-bold text-[#FF5900] break-words">
+                    <span className="text-[24px] lg:text-[30px] font-bold text-primary break-words">
                       {stat.value}
                     </span>
                   </div>

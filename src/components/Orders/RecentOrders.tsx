@@ -90,7 +90,7 @@ export function RecentOrders() {
                 className="bg-white rounded-2xl p-4 border border-zinc-200 shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
               >
                 
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-2">
                   <span className={`px-3 py-1 rounded-md text-sm font-medium ${statusInfo.badge}`}>
                     {statusInfo.label}
                   </span>
@@ -103,9 +103,9 @@ export function RecentOrders() {
                   </div>
                 </div>
 
-                <div className="space-y-4">
+                <div className="">
                   <div className="flex justify-between items-center">
-                    <h3 className="text-[#FF3F00] text-xl font-medium">
+                    <h3 className="text-[#FF5900] text-xl font-medium">
                       {order.customer}
                     </h3>
                     <span className="text-[#FFB800] text-lg">
@@ -131,16 +131,19 @@ export function RecentOrders() {
                   </div>
                 </div>
 
-                <div className="flex gap-3 mt-4">
-                  <Button fullWidth>
-                    Ver detalhes
-                  </Button>
-                  <Button 
-                    fullWidth 
-                    className={`!bg-[#2CAFA0] ${order.status === 'delivered' ? '!bg-zinc-200 !text-zinc-500' : ''}`}
+                <div className="flex gap-2 mt-4">
+                  <button 
+                    onClick={() => {}} 
+                    className="flex-1 bg-primary text-white py-1 rounded-md"
                   >
-                    {statusInfo.button.text}
-                  </Button>
+                    Ver detalhes
+                  </button>
+                  <button 
+                    onClick={() => {}} 
+                    className="flex-1 bg-[#38C7A5] text-white py-1 rounded-md"
+                  >
+                    Aceitar pedido
+                  </button>
                 </div>
               </div>
             );

@@ -8,9 +8,10 @@ import { Header } from "@/components/Header";
 import { AdditionalsProvider } from '@/contexts/AdditionalsContexts';
 
 
-const poppins = Poppins({ 
-  subsets: ["latin"],
+const poppins = Poppins({
+  subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
+  variable: '--font-poppins',
 });
 
 
@@ -25,12 +26,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning className={poppins.variable}>
       <head>
         <link rel="icon" href="/images/iconTeme.png" />
         <link rel="shortcut icon" href="/images/iconTeme.png" />
       </head>
-      <body className={poppins.className}>
+      <body className="font-sans">
         <AdditionalsProvider>
           <div className="flex min-h-screen bg-zinc-50">
             <Sidebar />

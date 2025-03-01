@@ -1,4 +1,5 @@
 import { CaretLeft, MagnifyingGlass } from "@phosphor-icons/react";
+import { Button } from 'src/components/Button';
 
 interface CategoryModalProps {
   isOpen: boolean;
@@ -116,12 +117,12 @@ export function CategoryModal({ isOpen, onClose, selectedCategories, onCategoryC
 
         {/* Footer */}
         <div className="flex justify-end p-4 mt-4">
-          <button 
+          <Button 
+            variant="primary" 
             onClick={onClose}
-            className="bg-[#FF5900] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#FF5900]/90"
           >
             Continuar
-          </button>
+          </Button>
         </div>
       </div>
     </div>

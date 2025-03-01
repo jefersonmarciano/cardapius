@@ -28,7 +28,7 @@ export function useOrders() {
               number: '999',
               time: 'há 15 min'
             },
-            customer: 'João Silva',
+            customer: 'Allan Vieira',
             items: [
               { name: 'Pizza Grande', price: 45.90, quantity: 1 },
               { name: 'Refrigerante 2L', price: 12.00, quantity: 1 }
