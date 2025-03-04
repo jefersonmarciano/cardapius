@@ -110,7 +110,7 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-[240px] bg-white flex flex-col h-screen">
+    <aside className="w-[240px] bg-[#F5F5F5] flex flex-col h-screen">
       <div className="p-6 flex-shrink-0">
         <Image
           src="/images/icons/Logo.png"
@@ -208,7 +208,7 @@ export function Sidebar() {
           {/* Pontos decorativos */}
           <div className="absolute top-4 right-4 grid grid-cols-4 gap-1">
             {[...Array(16)].map((_, i) => (
-              <div key={i} className="w-1 h-1 bg-white/20 rounded-full" />
+              <div key={i} className="w-1 h-1 bg-[#F5F5F5]/20 rounded-full" />
             ))}
           </div>
 
@@ -218,7 +218,7 @@ export function Sidebar() {
           <h3 className="text-white text-lg font-bold leading-tight mb-4 relative z-10">
             Garanta mais recursos subindo seu plano
           </h3>
-          <button className="bg-white text-zinc-900 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-white/90 transition-colors relative z-10">
+          <button className="bg-[#F5F5F5] text-zinc-900 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-[#F5F5F5]/90 transition-colors relative z-10">
             DESCONTO AQUI!
           </button>
         </div>

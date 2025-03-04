@@ -28,7 +28,7 @@ export function ProductSection({ isEditing, onEdit }: ProductSectionProps) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-2xl border border-zinc-200">
+    <div className="bg-[#F5F5F5] p-6 rounded-2xl border border-zinc-200">
       <h3 className="text-zinc-900 font-medium mb-2">Produto</h3>
       <p className="text-zinc-500 text-sm mb-6">Adicione as informações do produto.</p>
 
@@ -139,7 +139,7 @@ export function ProductSection({ isEditing, onEdit }: ProductSectionProps) {
                 <select 
                   id="disponibilidade"
                   defaultValue="disponivel"
-                  className="w-full p-3 rounded-lg border border-zinc-200 outline-none text-zinc-900 bg-white appearance-none pr-10 cursor-pointer"
+                  className="w-full p-3 rounded-lg border border-zinc-200 outline-none text-zinc-900 bg-[#F5F5F5] appearance-none pr-10 cursor-pointer"
                 >
                   <option value="disponivel">Disponível</option>
                   <option value="indisponivel">Indisponível</option>

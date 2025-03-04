@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { MostOrderedProducts } from "@/components/Product/MostOrderedProducts";
 import { LastOrderedProducts } from "@/components/Product/LastOrderedProducts";
+import { StatCard } from "@/components/Statistics/StatCard";
 
 export default function Home() {
   const stats = [
@@ -13,7 +14,6 @@ export default function Home() {
       change: "-10.80%",
       isNegative: true,
       iconPath: "/images/icons/cash.svg",
-      color: "#FF3F00",
     },
     {
       label: "Novos clientes",
@@ -21,7 +21,6 @@ export default function Home() {
       change: "+10.80%",
       isNegative: false,
       iconPath: "/images/icons/client.svg",
-      color: "#FF3F00",
     },
     {
       label: "Recorrência",
@@ -29,7 +28,6 @@ export default function Home() {
       change: "+10.80%",
       isNegative: false,
       iconPath: "/images/icons/recorrencia.svg",
-      color: "#FF3F00",
     },
     {
       label: "Desistências",
@@ -37,12 +35,11 @@ export default function Home() {
       change: "-10.80%",
       isNegative: true,
       iconPath: "/images/icons/desistencia.svg",
-      color: "#FF3F00",
     },
   ];
 
   return (
-    <div className="p-1">
+    <div className="p-1 bg-[#F5F5F5]">
       <div className="max-h-[calc(100vh-2rem)] overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:none]">
         {/* Banner promocional */}
         <div className="bg-[#FF5900] text-white rounded-[32px] p-8 mb-8 relative overflow-hidden h-[240px] lg:h-[200px]">
@@ -100,39 +97,16 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {stats.map((stat) => {
-              return (
-                <div
-                  key={stat.label}
-                  className="bg-white rounded-2xl p-6 shadow-sm w-full"
-                >
-                  <div className="text-[14px] text-zinc-400 mb-4 text-center">
-                    {stat.label}
-                  </div>
-                  <div className="flex items-center gap-3 mb-2 flex-wrap">
-                    <div className="shrink-0">
-                      <Image
-                        src={stat.iconPath}
-                        alt={stat.label}
-                        width={32}
-                        height={32}
-                        className="text-primary"
-                      />
-                    </div>
-                    <span className="text-[24px] lg:text-[30px] font-bold text-primary break-words">
-                      {stat.value}
-                    </span>
-                  </div>
-                  <div
-                    className={`text-[14px] ${
-                      stat.isNegative ? "text-[#F04949]" : "text-emerald-500"
-                    }`}
-                  >
-                    {stat.change}
-                  </div>
-                </div>
-              );
-            })}
+            {stats.map((stat) => (
+              <StatCard
+                key={stat.label}
+                label={stat.label}
+                value={stat.value}
+                change={stat.change}
+                isNegative={stat.isNegative}
+                iconPath={stat.iconPath}
+              />
+            ))}
           </div>
           <div className="text-[14px] text-zinc-400 mt-2 text-right">
             *Dados comparados à semana anterior

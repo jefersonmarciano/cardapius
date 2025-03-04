@@ -23,10 +23,26 @@ interface Order {
 export function OrderCard({ order }: { order: any }) {
   console.log('Order:', order);
 
+  // Define a cor de fundo com base no status do pedido
+  const statusColor = (() => {
+    switch (order.status) {
+      case 'Em aberto':
+        return 'bg-[#FFBB00]';
+      case 'Em preparo':
+        return 'bg-[#FF9760]'; 
+      case 'Aguardando envio':
+        return 'bg-[#60E7FF]'; 
+      case 'Pedido enviado':
+        return 'bg-[#C2FF60]'; 
+      default:
+        return 'bg-amber-400'; 
+    }
+  })();
+
   return (
-    <div className="bg-white rounded-2xl p-4 border border-zinc-200 shadow-[0_2px_12px_rgba(0,0,0,0.03)]">
+    <div className="bg-[#F5F5F5] rounded-2xl p-4 border border-zinc-200 shadow-[0_2px_12px_rgba(0,0,0,0.03)]">
       <div className="flex items-center justify-between mb-2">
-        <span className={`px-3 py-1 rounded-md text-sm font-medium bg-amber-400 text-black rounded-r-md -ml-4`}>
+        <span className={`px-3 py-1 rounded-tr-md rounded-br-md text-sm font-medium ${statusColor} text-black -ml-4`}>
           {order.status}
         </span>
         <div className="flex flex-col items-end">

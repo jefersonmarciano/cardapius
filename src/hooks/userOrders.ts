@@ -11,7 +11,7 @@ interface Order {
     price: number;
     quantity: number;
   }[];
-  status: 'pending' | 'accepted' | 'preparing' | 'delivered';
+  status: 'Em aberto' | 'Em preparo' | 'Aguardando envio' | 'Pedido enviado';
 }
 
 export function useOrders() {
@@ -33,7 +33,7 @@ export function useOrders() {
               { name: 'Pizza Grande', price: 45.90, quantity: 1 },
               { name: 'Refrigerante 2L', price: 12.00, quantity: 1 }
             ],
-            status: 'pending'
+            status: 'Em aberto'
           },
           {
             id: {
@@ -45,7 +45,7 @@ export function useOrders() {
               { name: 'Hambúrguer', price: 25.90, quantity: 2 },
               { name: 'Batata Frita', price: 15.00, quantity: 1 }
             ],
-            status: 'accepted'
+            status: 'Em preparo'
           },
           {
             id: {
@@ -57,7 +57,7 @@ export function useOrders() {
               { name: 'Hot Dog Especial', price: 18.90, quantity: 2 },
               { name: 'Milk Shake', price: 14.90, quantity: 1 }
             ],
-            status: 'preparing'
+            status: 'Aguardando envio'
           },
           {
             id: {
@@ -69,7 +69,7 @@ export function useOrders() {
               { name: 'Açaí 500ml', price: 22.90, quantity: 1 },
               { name: 'Pastel', price: 8.90, quantity: 3 }
             ],
-            status: 'delivered'
+            status: 'Pedido enviado'
           }
         ];
 

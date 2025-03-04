@@ -9,7 +9,7 @@ export function Header() {
   const { items } = useCart();
 
   return (
-    <div className="flex justify-end p-6 border-b border-zinc-100">
+    <div className="flex justify-end p-6 border-b border-zinc-100 bg-[#F5F5F5]">
       <button className="flex items-center gap-3">
         <Image
           src="/images/avatars/user.png"

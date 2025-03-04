@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export function SimpleRegistrationCard() {
   return (
-    <div className="bg-white p-6 rounded-2xl border border-zinc-200">
+    <div className="bg-[#F5F5F5] p-6 rounded-2xl border border-zinc-200">
       <div className="flex gap-4">
         <div className="w-16 h-16 relative">
           <Image 

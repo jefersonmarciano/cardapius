@@ -59,11 +59,11 @@ export default function CadastroSimplesPage() {
         <Header />
         
         <div className="max-w-[100%] space-y-2">
-          <div className="bg-white rounded-2xl border border-zinc-100">
+          <div className="bg-[#F5F5F5] rounded-2xl border border-zinc-100">
             <SimpleRegistrationCard />
           </div>
 
-          <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
+          <div className="bg-[#F5F5F5] rounded-2xl border border-zinc-100 mb-2">
             <CategorySection 
               selectedCategories={selectedCategories}
               onOpenModal={() => setIsCategoryModalOpen(true)}
@@ -71,7 +71,7 @@ export default function CadastroSimplesPage() {
           </div>
 
           {showProductSection && (
-            <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
+            <div className="bg-[#F5F5F5] rounded-2xl border border-zinc-100 mb-2">
               <ProductSection 
                 isEditing={isProductEditing}
                 onEdit={() => setIsProductEditing(true)}
@@ -79,7 +79,7 @@ export default function CadastroSimplesPage() {
             </div>
           )}
 
-          <div className="bg-white rounded-2xl border border-zinc-100 mb-2">
+          <div className="bg-[#F5F5F5] rounded-2xl border border-zinc-100 mb-2">
             <AdditionalsSection 
               isVisible={showAdditionals}
               onOpenAdditionalsModal={() => setIsAdditionalsModalOpen(true)}
@@ -88,7 +88,7 @@ export default function CadastroSimplesPage() {
           </div>
 
           {showOffers && (
-            <div className="bg-white rounded-2xl border border-zinc-100">
+            <div className="bg-[#F5F5F5] rounded-2xl border border-zinc-100">
               <OffersSection 
                 onOpenOffersModal={() => setIsOffersModalOpen(true)}
               />

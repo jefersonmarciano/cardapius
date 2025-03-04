@@ -33,7 +33,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans">
         <AdditionalsProvider>
-          <div className="flex min-h-screen bg-zinc-50">
+          <div className="flex min-h-screen bg-zinc-50 bg-[#F5F5F5]">
             <Sidebar />
             <div className="flex-1">
               <CartWrapper>

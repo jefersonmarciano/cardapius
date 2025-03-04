@@ -25,12 +25,12 @@ export function CustomersPage() {
           <input 
             type="text"
             placeholder="Buscar clientes por nome ou telefone"
-            className="w-full pl-12 pr-4 py-3 rounded-lg bg-white border border-zinc-100 outline-none text-sm"
+            className="w-full pl-12 pr-4 py-3 rounded-lg bg-[#F5F5F5] border border-zinc-100 outline-none text-sm"
           />
         </div>
 
         <div className="relative">
-          <select className="appearance-none bg-white border border-zinc-100 rounded-lg px-4 py-3 pr-10 text-sm text-zinc-500 outline-none">
+          <select className="appearance-none bg-[#F5F5F5] border border-zinc-100 rounded-lg px-4 py-3 pr-10 text-sm text-zinc-500 outline-none">
             <option>Ordenar por: Mais novos</option>
             <option>Ordenar por: Mais antigos</option>
           </select>
@@ -42,7 +42,7 @@ export function CustomersPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg border border-zinc-100">
+      <div className="bg-[#F5F5F5] rounded-lg border border-zinc-100">
         <div className="grid grid-cols-[auto_2fr_1fr_1fr_auto] gap-4 p-4 border-b border-zinc-100 text-sm">
           <div className="flex items-center">
             <input type="checkbox" className="rounded border-zinc-300" />

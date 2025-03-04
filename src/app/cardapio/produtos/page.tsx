@@ -18,7 +18,7 @@ export default function CardapioPage() {
       <div className="max-w-[100%] space-y-2">
         {/* Cadastro simples */}
         <Link href="/cardapio/cadastro-simples">
-          <div className="bg-white p-6 rounded-2xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 hover:border-[#FF5900] group">
+          <div className="bg-[#F5F5F5] p-6 rounded-2xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 hover:border-[#FF5900] group">
             <div className="flex gap-4">
               <div className="w-16 h-16 relative">
                 <Image 
@@ -39,7 +39,7 @@ export default function CardapioPage() {
 
         {/* Cadastro de bebidas */}
         <Link href="/cardapio/cadastro-bebidas" className="block">
-          <div className="bg-white p-6 rounded-2xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 hover:border-[#FF5900] group">
+          <div className="bg-[#F5F5F5] p-6 rounded-2xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 hover:border-[#FF5900] group">
             <div className="flex gap-4">
               <div className="w-16 h-16 relative">
                 <div 
@@ -66,7 +66,7 @@ export default function CardapioPage() {
 
         {/* Cadastro de pizza */}
         <Link href="/cardapio/cadastro-pizza" className="block">
-          <div className="bg-white p-6 rounded-2xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 hover:border-[#FF5900] group">
+          <div className="bg-[#F5F5F5] p-6 rounded-2xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 hover:border-[#FF5900] group">
             <div className="flex gap-4">
               <div className="w-16 h-16 relative">
                 <div 

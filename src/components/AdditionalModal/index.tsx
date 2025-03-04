@@ -47,7 +47,7 @@ export function AdditionalModal({ isOpen, onClose, onSave, initialData }: Additi
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+      <div className="bg-[#F5F5F5] rounded-lg p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
         <h2 className="text-2xl font-bold mb-6">Adicional</h2>
         <p className="text-gray-600 mb-6">Adicione as informações do adicional.</p>
 

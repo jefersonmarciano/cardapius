@@ -35,11 +35,11 @@ export default function CategoriasPage() {
             placeholder="Buscar categoria ou subcategoria"
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 rounded-lg bg-white border border-zinc-200 outline-none text-zinc-900"
+            className="w-full pl-12 pr-4 py-3 rounded-lg bg-[#F5F5F5] border border-zinc-200 outline-none text-zinc-900"
           />
         </div>
 
-        <div className="bg-white rounded-2xl">
+        <div className="bg-[#F5F5F5] rounded-2xl">
           {categories.map(category => (
             <div key={category.id} className="border-b border-zinc-100 last:border-none">
               <div className="flex items-center justify-between p-4">

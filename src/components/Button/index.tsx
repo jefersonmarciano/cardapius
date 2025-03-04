@@ -16,7 +16,7 @@ export function Button({
   ...props 
 }: ButtonProps) {
   const buttonClasses = `
-    ${variant === 'primary' ? 'bg-[#FF5900] text-white' : 'bg-white text-[#FF5900] border border-[#FF5900]'}
+    ${variant === 'primary' ? 'bg-[#FF5900] text-white' : 'bg-[#F5F5F5] text-[#FF5900] border border-[#FF5900]'}
     ${fullWidth ? 'w-full' : ''}
     px-4 py-2 rounded-lg text-sm font-medium
     ${className}

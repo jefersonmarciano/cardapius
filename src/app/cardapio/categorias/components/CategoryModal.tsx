@@ -33,7 +33,7 @@ export function CategoryModal({ isOpen, onClose }: CategoryModalProps) {
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/25" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-[480px] rounded-2xl p-6">
+        <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#F5F5F5] w-full max-w-[480px] rounded-2xl p-6">
           <header className="flex items-center justify-between mb-6">
             <Dialog.Title className="text-lg font-medium text-zinc-900">
               Cadastrar categoria

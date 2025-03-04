@@ -33,11 +33,11 @@ export default function GrupoAdicionaisPage() {
             placeholder="Buscar grupo de adicionais"
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 rounded-lg bg-white border border-zinc-200 outline-none text-zinc-900 placeholder:text-zinc-400"
+            className="w-full pl-12 pr-4 py-3 rounded-lg bg-[#F5F5F5] border border-zinc-200 outline-none text-zinc-900 placeholder:text-zinc-400"
           />
         </div>
 
-        <div className="bg-white rounded-2xl divide-y divide-zinc-100">
+        <div className="bg-[#F5F5F5] rounded-2xl divide-y divide-zinc-100">
           {groups.map(group => (
             <div key={group.id} className="p-6">
               <div className="flex items-center justify-between mb-4">

@@ -53,7 +53,7 @@ export function OrdersPage() {
         />
       </div>
 
-      <div className="bg-white p-6 rounded-3xl border border-[#E8E8E8]">
+      <div className="bg-[#F5F5F5] p-6 rounded-3xl border border-[#E8E8E8]">
         <div className="flex gap-4 mb-6 border-b border-zinc-100 pb-4">
           {statusFilters.map((status) => (
             <button
