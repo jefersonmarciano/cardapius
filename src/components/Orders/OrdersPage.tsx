@@ -3,6 +3,7 @@
 import { MagnifyingGlass } from "@phosphor-icons/react";
 import { useState } from "react";
 import { Button } from "@/components/Button";
+import { OrderCard } from "./OrderCard";
 
 interface OrderItem {
   name: string;
@@ -71,42 +72,7 @@ export function OrdersPage() {
 
         <div className="grid grid-cols-2 gap-4">
           {orders.map((order, index) => (
-            <div key={index} className="bg-white p-4 rounded-lg border border-[#E8E8E8]">
-              <div className="flex items-center justify-between mb-4">
-                <span className="px-3 py-1 bg-amber-400 text-black text-sm font-medium rounded-r-md -ml-4">
-                  Em aberto
-                </span>
-                <div className="flex items-center gap-2 text-sm">
-                  <span className="text-zinc-300">—</span>
-                  <span className="text-zinc-400">{order.id}</span>
-                  <span className="text-amber-400 font-medium">{order.time}</span>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <h3 className="text-[#FF5900] text-lg font-medium">{order.customer}</h3>
-                {order.items.map((item: OrderItem, itemIndex: number) => (
-                  <div key={itemIndex} className="flex justify-between text-zinc-400 text-sm">
-                    <span>{item.name}</span>
-                    <span>R$ {item.price.toFixed(2)}</span>
-                  </div>
-                ))}
-                <div className="text-zinc-400 text-sm">+2 itens</div>
-                <div className="flex justify-between text-zinc-400 text-sm">
-                  <span>Total</span>
-                  <span>R$ {order.total.toFixed(2)}</span>
-                </div>
-              </div>
-
-              <div className="flex gap-2 mt-4">
-                <Button fullWidth>
-                  Ver detalhes
-                </Button>
-                <Button fullWidth className="!bg-emerald-500">
-                  Aceitar pedido
-                </Button>
-              </div>
-            </div>
+            <OrderCard key={index} order={order} />
           ))}
         </div>
 

@@ -83,7 +83,7 @@ export default function CardapioPage() {
 
         {/* Table Container */}
         <div className="bg-white rounded-2xl overflow-hidden">
-          <div className="w-full overflow-y-auto scrollbar-hidden">
+          <div className="w-full overflow-y-auto scrollbar-hidden" style={{ padding: '20px' }}>
             <table className="w-full min-w-full">
               <thead>
                 <tr className="text-sm text-zinc-400 border-b border-zinc-100">
