@@ -28,7 +28,7 @@ export function OffersSection({ onOpenOffersModal }: OffersSectionProps) {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-8 bg-white border border-[#E8E8E8] rounded-xl mb-2">
       <h2 className="text-zinc-900 font-medium mb-2">Ofertas</h2>
       <p className="text-zinc-500 text-sm mb-4">
         Aumente o ticket médio incluindo 
@@ -36,7 +36,7 @@ export function OffersSection({ onOpenOffersModal }: OffersSectionProps) {
 
       <button 
         onClick={handleOpenModal}
-        className="text-[#FF5900] hover:text-[#FF5900]/80 text-sm flex items-center gap-1"
+        className="text-[#FF5900] hover:text-[#FF5900]/80 text-sm flex items-center gap-1 mb-2"
       >
         <span>+</span>
         Incluir oferta(s)
@@ -52,47 +52,77 @@ export function OffersSection({ onOpenOffersModal }: OffersSectionProps) {
       <div className="mt-4">
         {selectedOffers.length > 0 && (
           <div className="flex justify-between font-semibold text-sm text-gray-500 mb-2">
-            <div className="flex items-center">
-              <FaInfoCircle className="mr-1" />
-              <span>Informações</span>
-            </div>
-            <span className="w-1/4 text-center">Preço</span>
-            <span className="w-1/4 text-center">Preço promocional</span>
-            <span className="w-1/4 text-center">Disponível</span>
-            <span className="w-1/4 text-center">Ações</span>
-          </div>
-        )}
-
-        {selectedOffers.length > 0 ? (
-          selectedOffers.map(offerId => {
-            const offer = offers.find(o => o.id === offerId);
-            return (
-              <div key={offerId} className="flex justify-between items-center border-b border-zinc-200 pb-2 mb-2">
-                <div className="ml-2 w-1/4 flex items-center">
-                  <img src={offer?.imageUrl} alt={offer?.name} className="w-16 h-16 object-cover rounded" />
-                  <div className="ml-2">
-                    <h3 className="font-medium" style={{ color: '#FF5900' }}>{offer?.name}</h3>
-                    <p className="text-sm text-zinc-600">{offer?.description}</p>
+            <div className="flex flex-col items-start mr-2">
+              <img src="/images/icons/imageIncon.svg" alt="Imagem" className="w-4 h-4 mb-2" />
+              {selectedOffers.map(offerId => {
+                const offer = offers.find(o => o.id === offerId);
+                return (
+                  <div key={offerId} className="mb-1">
+                    {offer?.imageUrl && (
+                      <img src={offer.imageUrl} alt={offer.name} className="w-10 h-10 rounded" />
+                    )}
                   </div>
-                </div>
-                <span className="font-semibold text-center border border-gray-300 rounded-lg px-2 py-1">R$ {offer?.price.toFixed(2)}</span>
-                <span className="line-through text-zinc-400 text-center border border-gray-300 rounded-lg px-2 py-1">R$ {offer?.promotionalPrice.toFixed(2)}</span>
-                
-                <div className="flex items-center">
-                  <label className="relative inline-flex items-center cursor-pointer ">
-                    <input type="checkbox" className="sr-only peer" />
-                    <div className="w-14 h-8 bg-[#2CA69C] rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-[#2CA69C]"></div>
-                    <div className="absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-6"></div>
-                  </label>
-                </div>
-
-                <button onClick={() => handleRemoveOffer(offerId)} className="text-red-500">
+                );
+              })}
+            </div>
+            <div className="flex flex-col items-start">
+              <span>Informações</span>
+              {selectedOffers.map(offerId => {
+                const offer = offers.find(o => o.id === offerId);
+                return (
+                  <div key={offerId}>
+                    <h3 className="font-medium text-[#FF5900] mt-2 w-full">{offer?.name}</h3>
+                    <p className="text-zinc-500 text-xs">{offer?.description}</p>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="flex flex-col items-center">
+              <span>Preço</span>
+              {selectedOffers.map(offerId => {
+                const offer = offers.find(o => o.id === offerId);
+                return (
+                  <span key={offerId} className="font-semibold mb-3 mt-3">
+                    R$ {offer?.price.toFixed(2)}
+                  </span>
+                );
+              })}
+            </div>
+            <div className="flex flex-col items-center">
+              <span>Preço promocional</span>
+              {selectedOffers.map(offerId => {
+                const offer = offers.find(o => o.id === offerId);
+                return (
+                  <span key={offerId} className="line-through text-zinc-400 mb-3 mt-3">
+                    R$ {offer?.promotionalPrice.toFixed(2)}
+                  </span>
+                );
+              })}
+            </div>
+            <div className="flex flex-col items-center w-24">
+              <span>Disponível</span>
+              {selectedOffers.map(offerId => {
+                const offer = offers.find(o => o.id === offerId);
+                return (
+                  <div key={offerId} className="flex items-center">
+                    <label className="inline-flex items-center cursor-pointer">
+                      <input type="checkbox" value="" className="sr-only peer " />
+                      <div className="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-[#2CAFA0] dark:peer-checked:bg-[#2CAFA0] mb-3 mt-3"></div>
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="flex flex-col items-center">
+              <span>Ações</span>
+              {selectedOffers.map(offerId => (
+                <button key={offerId} onClick={() => handleRemoveOffer(offerId)} className="text-red-500 mb-4 mt-4">
                   <FaTrash />
                 </button>
-              </div>
-            );
-          })
-        ) : null}
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

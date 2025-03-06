@@ -60,13 +60,13 @@ export default function CardapioPage() {
                 type="text"
                 placeholder="Buscar produtos por nome, referência ou tags"
                 onChange={(e) => searchProducts(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 rounded-lg bg-[#F5F5F5] border border-zinc-200 outline-none text-zinc-900 placeholder:text-zinc-400"
+                className="w-full pl-12 pr-4 py-3 rounded-lg bg-[#FFFFFF] border border-zinc-200 outline-none text-zinc-900 placeholder:text-zinc-400"
               />
             </div>
           </div>
           <select 
             onChange={(e) => filterByCategory(e.target.value)}
-            className="px-4 py-3 rounded-lg border border-zinc-200 outline-none text-sm w-full sm:w-auto min-w-[180px] text-zinc-500 bg-[#F5F5F5]"
+            className="px-4 py-3 rounded-lg border border-zinc-200 outline-none text-sm w-full sm:w-auto min-w-[180px] text-zinc-500 bg-[#FFFFFF]"
           >
             <option value="">Categorias</option>
             <option value="Lanches">Lanches</option>
@@ -74,7 +74,7 @@ export default function CardapioPage() {
           </select>
           <select 
             onChange={(e) => setOrderBy(e.target.value)}
-            className="px-4 py-3 rounded-lg border border-zinc-200 outline-none text-sm w-full sm:w-auto min-w-[200px] text-zinc-500 bg-[#F5F5F5]"
+            className="px-4 py-3 rounded-lg border border-zinc-200 outline-none text-sm w-full sm:w-auto min-w-[200px] text-zinc-500 bg-[#FFFFFF]"
             defaultValue="Mais novos"
           >
             <option value="Mais novos">Ordenar por: Mais novos</option>
@@ -82,7 +82,7 @@ export default function CardapioPage() {
         </div>
 
         {/* Table Container */}
-        <div className="bg-[#F5F5F5] rounded-2xl overflow-hidden">
+        <div className="bg-[#FFFFFF] rounded-2xl overflow-hidden">
           <div className="w-full overflow-y-auto scrollbar-hidden" style={{ padding: '20px' }}>
             <table className="w-full min-w-full">
               <thead>

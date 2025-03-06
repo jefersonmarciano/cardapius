@@ -40,7 +40,7 @@ export function LastOrderedProducts() {
 
       <div className="grid grid-cols-3 gap-6">
         {products.map((product) => (
-          <div key={product.id} className="bg-[#F5F5F5] rounded-3xl p-3 shadow-sm">
+          <div key={product.id} className="bg-[#FFFFFF] rounded-3xl p-3 shadow-sm">
             <div className="relative">
               <div className="absolute top-3 left-3 bg-[#F04949] text-white px-3 py-1 rounded-lg text-sm font-medium z-10">
                 {product.discount}% Off

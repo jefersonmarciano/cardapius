@@ -110,7 +110,7 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-[240px] bg-[#F5F5F5] flex flex-col h-screen">
+    <aside className="w-[240px] bg-[#FFFFFF] flex flex-col h-screen">
       <div className="p-6 flex-shrink-0">
         <Image
           src="/images/icons/Logo.png"
@@ -208,7 +208,7 @@ export function Sidebar() {
           {/* Pontos decorativos */}
           <div className="absolute top-4 right-4 grid grid-cols-4 gap-1">
             {[...Array(16)].map((_, i) => (
-              <div key={i} className="w-1 h-1 bg-[#F5F5F5]/20 rounded-full" />
+              <div key={i} className="w-1 h-1 bg-[#FFFFFF]/20 rounded-full" />
             ))}
           </div>
 

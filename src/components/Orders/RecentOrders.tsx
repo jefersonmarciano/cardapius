@@ -43,7 +43,7 @@ export function RecentOrders() {
   ];
 
   return (
-    <div className="w-[400px] p-6 bg-[#F5F5F5] border-l border-t border-zinc-100 rounded-tl-[32px]">
+    <div className="w-[400px] p-6 bg-[#FFFFFF] border-l border-t border-zinc-100 rounded-tl-[32px]">
       <div className="flex justify-center mb-6">
         <div className="inline-flex rounded-lg p-1 bg-zinc-100">
           <button className="px-4 py-1.5 rounded-lg bg-emerald-600 text-white font-medium transition-colors">
